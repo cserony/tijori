@@ -1,0 +1,15 @@
+D:\Inventory\ESOL_BO\bin\Debug\ESOL_BO.dll
+D:\Inventory\ESOL_BO\bin\Debug\ESOL_BO.pdb
+D:\Inventory\ESOL_BO\obj\Debug\ESOL_BO.dll
+D:\Inventory\ESOL_BO\obj\Debug\ESOL_BO.pdb
+D:\Inventory\ESOL_BO\obj\Debug\ESOL_BO.csprojResolveAssemblyReference.cache
+G:\Tijori E-commerce\Project(14-Feb-2021)\ESOL_BO\bin\Debug\ESOL_BO.dll
+G:\Tijori E-commerce\Project(14-Feb-2021)\ESOL_BO\bin\Debug\ESOL_BO.pdb
+G:\Tijori E-commerce\Project(14-Feb-2021)\ESOL_BO\obj\Debug\ESOL_BO.dll
+G:\Tijori E-commerce\Project(14-Feb-2021)\ESOL_BO\obj\Debug\ESOL_BO.pdb
+G:\Tijori E-commerce\Project(14-Feb-2021)\ESOL_BO\obj\Debug\ESOL_BO.csprojResolveAssemblyReference.cache
+F:\Tijori E-commerce\Project(14-Feb-2021)\ESOL_BO\bin\Debug\ESOL_BO.dll
+F:\Tijori E-commerce\Project(14-Feb-2021)\ESOL_BO\bin\Debug\ESOL_BO.pdb
+F:\Tijori E-commerce\Project(14-Feb-2021)\ESOL_BO\obj\Debug\ESOL_BO.csprojResolveAssemblyReference.cache
+F:\Tijori E-commerce\Project(14-Feb-2021)\ESOL_BO\obj\Debug\ESOL_BO.dll
+F:\Tijori E-commerce\Project(14-Feb-2021)\ESOL_BO\obj\Debug\ESOL_BO.pdb

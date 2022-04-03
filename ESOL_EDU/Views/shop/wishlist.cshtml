@@ -1,0 +1,115 @@
+﻿
+@{
+    ViewBag.Title = "wishlist";
+    Layout = "~/Views/Shared/_LayoutEcommerce.cshtml";
+}
+
+<div id="custom-header">
+    <div class="custom-header-content">
+        <div class="container">
+            <h1 class="page-title">Wishlist</h1>
+            <div id="breadcrumb">
+                <div aria-label="Breadcrumbs" class="breadcrumbs breadcrumb-trail">
+                    <ul class="trail-items">
+                        <li class="trail-item trail-begin"><a href="@Url.Action("Index", "Web", new { Area = "" })" rel="home"><span>Home</span></a></li>
+                        <li class="trail-item trail-end"><span>Wishtlist</span></li>
+                    </ul>
+                </div> <!-- .breadcrumbs -->
+            </div> <!-- #breadcrumb -->
+        </div> <!-- .container -->
+    </div>  <!-- .custom-header-content -->
+</div> <!-- .custom-header -->
+<div id="content" class="site-content default-full-width">
+    <div class="container">
+        <div class="inner-wrapper">
+            <div id="primary" class="content-area">
+                <div id="snackbar">@ViewBag.Message</div>
+                <main id="main" class="site-main">
+                    <div class="section-cart">
+                        @if (Session["CustomerPortal"] != null)
+                        {
+                            <table class="cart shop-table shop-table-responsive wishlist">
+                                <thead>
+                                    <tr>
+                                        <th class="product-name">Product Detail</th>
+                                        <th class="product-price">Price</th>
+                                        <th class="product-status">Stock status</th>
+                                        <th class="product-subtotal" style="width: 13%;"></th>
+                                        <th class="product-remove"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (ESOL_BO.Ecommerce.EcommerceWishlistDomain item in ViewBag.Wishlist)
+                                    {
+                                        <tr class="cart-item">
+                                            <td class="product-name" data-title="Product">
+                                                <a href="@Url.Action("product", "shop", new { Area = "",slug=@item.Slug})" class="cart-product-thumb">
+                                                    <img src="../@Html.DisplayFor(modelItem => item.ImageName)" alt="@Html.DisplayFor(modelItem => item.ProductName)" />
+                                                </a>
+                                                <div class="product-info">
+                                                    <h3>@Html.DisplayFor(modelItem => item.ProductName)</h3>
+                                                    <ul>
+                                                        <li>SKU: @Html.DisplayFor(modelItem => item.SKU)</li>
+                                                        <li style="font-weight:bold">Added on: @Html.DisplayFor(modelItem => item.Date)</li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td class="product-price" data-title="Price">
+                                                <span class="product-Price-amount amount">
+                                                    ৳@Html.DisplayFor(modelItem => item.SalePrice)
+                                                </span>
+                                            </td>
+                                            <td class="product-status" data-title="Stock">
+                                                <div class="quantity">
+                                                    @if (item.Quantity > 0)
+                                                    {
+                                                        <span>@Html.DisplayFor(modelItem => item.Quantity) in stock</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>Out of stock</span>
+                                                    }
+                                                </div>
+                                            </td>
+                                            <td class="product-subtotal" data-title="Shop">
+                                                @if (item.Quantity > 0)
+                                                {
+                                                    <a href="@Url.Action("addToCart", "shop", new { Area = "",id=item.ProductId})" class="custom-button button-small">Add To Cart</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@Url.Action("addToCart", "shop", new { Area = "",id=item.ProductId})" class="custom-button button-small">Add To Cart</a>
+                                                }
+                                            </td>
+                                            <td class="product-remove" data-title="Remove">
+                                                <a href="@Url.Action("wishlistRemove", "shop", new { Area = "",id=item.WishlistId})" class="remove" title="Remove this item">
+                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                        }
+                        else
+                        {
+                            <p>No product found!</p>
+                        }
+
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="~/Scripts/js/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var x = document.getElementById("snackbar");
+        x.className = "show";
+        setTimeout(function () {
+            x.className = x.className.replace("show", "");
+        }, 3000);
+    });
+</script>

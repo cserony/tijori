@@ -1,0 +1,55 @@
+﻿@model ESOL_BO.Ecommerce.EcommerceCustomerDomain
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutEcommerce.cshtml";
+}
+<div id="custom-header">
+    <div class="custom-header-content">
+        <div class="container">
+            <h1 class="page-title">Login</h1>
+            <div id="breadcrumb">
+                <div aria-label="Breadcrumbs" class="breadcrumbs breadcrumb-trail">
+                    <ul class="trail-items">
+                        <li class="trail-item trail-begin"><a href="@Url.Action("Index", "Web", new { Area = "" })" rel="home"><span>Home</span></a></li>
+                        <li class="trail-item trail-end"><span>Login</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="content" class="site-content default-full-width">
+    <div class="container">
+        <div class="inner-wrapper">
+            <div id="primary" class="content-area">
+                <main id="main" class="site-main">
+                    <div class="section-my-account">
+                        <div class="login-account">
+                            <div class="user-acc-header">
+                                <img src="~/Web/images/blog-single/author1.png" alt="">
+                                <h3>Login</h3>
+                            </div>
+                            <div class="content-body">
+                                <div id="message">
+                                    @if (@ViewBag.ErrorMessage != null)
+                                    {
+                                        <p style="color: red">@ViewBag.ErrorMessage</p>
+                                    }
+                                </div>
+                                @using (Html.BeginForm("Login", "customer", FormMethod.Post, new { ReturnUrl = ViewBag.ReturnUrl, @id = "login_validator" }))
+                                {
+                                    <p><label>Mobile No.</label><input type="text" placeholder="Mobile No." required name="UserName"></p>
+                                    <p><label>Password</label><input type="password" placeholder="Password" required name="Password"></p>
+                                    <p><input type="submit" class="custom-button button-small" value="Login"></p>
+                                }
+                            </div>
+                            <div class="user-acc-footer">
+                                <p>New user? <a class="register-account-link" href="@Url.Action("Registation", "customer", new { Area = "" })">Register</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+</div>

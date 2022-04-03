@@ -1,0 +1,71 @@
+﻿@model ESOL_BO.DbAccess.Security.UserDomain
+
+@{
+    ViewBag.Title = "User Information";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<header class="head">   
+    <div class="main-bar row">
+        <div class="col-sm-5 col-lg-6 skin_txt">
+            <h4 class="nav_top_align"><i class="fa fa-pencil"></i>User Information</h4>
+        </div>
+        <div class="col-sm-7 col-lg-6">
+            <ol class="breadcrumb float-xs-right nav_breadcrumb_top_align">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home", new { Area = "" })"><i data-tags="" data-pack="default" class="fa fa-home"></i>Dashboard</a></li>
+                <li class="breadcrumb-item">Admin</li>
+                <li class="active breadcrumb-item">User Information</li>
+            </ol>
+        </div>
+    </div>
+</header>
+<div class="outer">
+    <div class="inner bg-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-white">User Profile</div>
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card inline_section_align">
+                                    <div class="card-header bg-white">
+                                        General Information 
+                                    </div>
+                                    <div class="card-block">
+                                        <span class="text-success">Role Name:</span> @Html.DisplayFor(model => model.RoleName)<br />
+                                        <span class="text-success">User Name:</span> @Html.DisplayFor(model => model.UserName)<br />
+                                        <span class="text-success">Password:</span> @Html.DisplayFor(model => model.Password)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card inline_section_align">
+                                    <div class="card-header bg-white">
+                                        Contact Information
+                                    </div>
+                                    <div class="card-block">
+                                        <span class="text-success">E-mail:</span> @Html.DisplayFor(model => model.Email)<br />
+                                        <span class="text-success">Active:</span>
+                                            @if(Model.IsActive == true)
+                                            {
+                                                <span>Active</span>
+                                            }
+                                            else
+                                            {
+                                                <span>Inactive</span>
+                                            }
+
+                                        <br />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p style="margin-left: 19px;">@Html.ActionLink("Go to list", "Index")</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,66 @@
+﻿@using ESOL_BO.DbAccess.Security
+@using ESOL_EDU.Helper
+@model IEnumerable<ReportPermissionDomain>
+@{
+    var roleId = (int)ViewBag.RoleId;
+    var appId = (int)ViewBag.AppId;
+    int i = 0;
+}
+<div class="table-responsive">
+     <p><label><input type="checkbox" id="checkAll"/> Check all</label></p>
+    @using (Html.BeginForm("Create", "ReportPermission", FormMethod.Post, new { id = "frmCollection" }))
+    {
+       @Html.Hidden("RoleId", roleId)
+         @Html.Hidden("AppId", appId)
+        <table class="table table-bordered table-hover table-striped">
+            <tr class="danger">
+                <th>Menu Name</th>
+                <th>Permission</th>
+            </tr>
+
+            @foreach (ReportPermissionDomain item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReportName)
+                        @Html.Hidden("lists[" + i + "].ReportId",item.ReportId)
+                        @Html.Hidden("lists[" + i + "].RoleId",roleId)
+                        @Html.Hidden("lists[" + i + "].AppId",item.AppId)
+                    </td>
+                    <td>
+                        @Html.CheckBox("lists[" + i + "].IsPermission",item.IsPermission)
+                    </td>
+                 
+                </tr>
+                i++;
+            }
+
+        </table>
+
+        <p>
+            <input type="submit" id="btnSave" value="Permission" class="btn btn-success btn-sm" />
+        </p>
+    }
+</div>
+<script>
+
+    $('#frmCollection').submit(function () {
+        var serializedForm = $(this).serialize();
+        $.ajax({
+            url: '@Url.Action("Create", "ReportPermission", new { area = "Security" })',
+            type: "POST",
+            data: serializedForm,
+            success: function (result) {
+                alert("Permission Success");
+                $("#result").html("");
+            },
+            error: function (result) {
+                alert("Failed");
+            }
+        });
+        return false;
+    });
+    $("#checkAll").change(function () {
+        $("input:checkbox").prop('checked', $(this).prop("checked"));
+    });
+</script>

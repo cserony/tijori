@@ -1,0 +1,128 @@
+﻿@model ESOL_BO.Ecommerce.EcommerceCouponDomain
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    Func<string, MvcHtmlString> function = (c) => Model != null && Model.DiscountType == c ? MvcHtmlString.Create("selected='selected'") : MvcHtmlString.Empty;
+}
+<header class="head">
+    <div class="main-bar row">
+        <div class="col-sm-5 col-lg-6 skin_txt">
+            <h4 class="nav_top_align"><i class="fa fa-pencil"></i>Coupon Manage</h4>
+        </div>
+        <div class="col-sm-7 col-lg-6">
+            <ol class="breadcrumb float-xs-right nav_breadcrumb_top_align">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home", new { Area = "" })"><i data-tags="" data-pack="default" class="fa fa-home"></i>E-commerce Panel</a></li>
+                <li class="breadcrumb-item">Web Portal</li>
+                <li class="active breadcrumb-item">Coupon</li>
+            </ol>
+        </div>
+    </div>
+</header>
+<div class="outer">
+    <div class="inner bg-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-white">Input Fields</div>
+                    <div class="card-block">
+                        @using (Html.BeginForm("Create", "Coupon", FormMethod.Post, new { @id = "createform", @class = "contact_form"}))
+                        {
+                            @Html.ValidationSummary(true)
+                            @Html.HiddenFor(model => model.CouponId)
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Discount Type</label><span style="color: #f2731e;font-weight: bold;margin-left: 2px;">*</span>
+                                        <select class="form-control input-sm" id="DiscountType" name="DiscountType" required>
+                                            <option value="">Select</option>
+                                            <option @function("P") value="P">Percentage Discount</option>
+                                            <option @function("F") value="F">Fixed Cart Discount</option>                                            
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Coupon Code</label><span style="color: #f2731e;font-weight: bold;margin-left: 2px;">*</span>
+                                        @Html.TextBoxFor(model => model.CouponCode, new { @class = "form-control input-sm", @required = "required" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Coupon Amount</label><span style="color: #f2731e;font-weight: bold;margin-left: 2px;">*</span>
+                                        @Html.TextBoxFor(model => model.CouponAmount, new { @class = "form-control input-sm", @required = "required", @onkeypress = "return isNumberKey(event)" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Coupon Expiry From Date</label><span style="color: #f2731e;font-weight: bold;margin-left: 2px;">*</span>
+                                        @Html.TextBoxFor(model => model.CouponFromDate, new { @style = "width: 100%;height: 28px;", @required = "required", @onkeydown = "return false;" })
+                                    </div>                                    
+                                </div>
+                                <div class="col-md-4">  
+                                    <div class="form-group">
+                                        <label>Coupon Expiry To Date</label><span style="color: #f2731e;font-weight: bold;margin-left: 2px;">*</span>
+                                        @Html.TextBoxFor(model => model.CouponToDate, new { @style = "width: 100%;height: 28px;", @required = "required", @onkeydown = "return false;" })
+                                    </div>                                
+                                    <div class="form-group">
+                                        <label>Minimum Spend</label><span style="color: #f2731e;font-weight: bold;margin-left: 2px;">*</span>
+                                        @Html.TextBoxFor(model => model.MinimumSpend, new { @class = "form-control input-sm", @required = "required", @onkeypress = "return isNumberKey(event)" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Maximum Spend</label><span style="color: #f2731e;font-weight: bold;margin-left: 2px;">*</span>
+                                        @Html.TextBoxFor(model => model.MaximumSpend, new { @class = "form-control input-sm", @required = "required", @onkeypress = "return isNumberKey(event)" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Usage Limit Per User</label>
+                                        @Html.TextBoxFor(model => model.UsageLimitPerUser, new { @class = "form-control input-sm", @onkeypress = "return isNumberKey(event)" })
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Description</label>
+                                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @style = "height: 94px;" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:5px;">
+                                <div class="col-md-6">
+                                    <input type="submit" class="btn btn-success btn-sm" value="Save" />
+                                    <button class="btn btn-danger btn-sm" id="btncancel" type="button">Go List</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div id="dvmessage" style="margin-left: 20px;">
+                        @if (@ViewBag.Message != null)
+                        {
+                            <p style="color: green">@ViewBag.Message </p>
+                        }
+                        @if (@ViewBag.Error != null)
+                        {
+                            <p style="color: red">@ViewBag.Error </p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="~/Scripts/js/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#CouponCode").focus();
+        $("#btnSave").click(function () {
+            $("#createform").submit();
+        });
+        $("#btncancel").click(function () {
+            if (confirm("Do You Want To Cancel this page?")) {
+                location.href = '@Url.Action("Index", "Coupon", new { Area = "Ecommerce" })';
+            }
+        });
+        $("#CouponFromDate").kendoDatePicker({
+            animation: false,
+            format: "dd MMMM yyyy",
+        });
+        $("#CouponToDate").kendoDatePicker({
+            animation: false,
+            format: "dd MMMM yyyy",
+        });
+    });
+</script>
+

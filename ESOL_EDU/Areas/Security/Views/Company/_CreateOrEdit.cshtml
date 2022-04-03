@@ -1,0 +1,36 @@
+﻿@using Kendo.Mvc.UI
+@model ESOL_BO.DbAccess.Security.CompanyDomain
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Company Name</label><span style="color: #f2731e;font-weight: bold;margin-left: 2px;">*</span>
+            @Html.TextBoxFor(model => model.OrgName, new { @class = "form-control input-sm" })
+        </div>
+        <div class="form-group">
+            <label>Contact Person</label><span style="color: #f2731e;font-weight: bold;margin-left: 2px;">*</span>
+            @Html.TextBoxFor(model => model.ContactPerson, new { @class = "form-control input-sm" })
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Mobile No.</label><span style="color: #f2731e;font-weight: bold;margin-left: 2px;">*</span>
+            @Html.TextBoxFor(model => model.MobileNo, new { @class = "form-control input-sm" })
+        </div>
+        <div class="form-group">
+            <label>E-mail</label><span style="color: #f2731e;font-weight: bold;margin-left: 2px;">*</span>
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control input-sm" })
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Present Address</label><span style="color: #f2731e;font-weight: bold;margin-left: 2px;">*</span>
+            @Html.TextAreaFor(model => model.Address, new { @class = "form-control input-sm", @style = "height: 67px;" })
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <input type="submit" class="btn btn-success btn-sm" value="Update" />
+        <button class="btn btn-danger btn-sm" id="btncancel" type="button">Go to list</button>
+    </div>
+</div>

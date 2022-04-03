@@ -1,0 +1,74 @@
+﻿@model ESOL_BO.DbAccess.Security.ReportPermissionDomain
+
+@{
+    ViewBag.Title = "Report Permission";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<header class="head">
+    <div class="main-bar row">
+        <div class="col-sm-5 col-lg-6 skin_txt">
+            <h4 class="nav_top_align"><i class="fa fa-pencil"></i>Report Permission Area</h4>
+        </div>
+        <div class="col-sm-7 col-lg-6">
+            <ol class="breadcrumb float-xs-right nav_breadcrumb_top_align">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home", new { Area = "" })"><i class="fa fa-home" data-pack="default" data-tags=""></i>Dashboard</a></li>
+                <li class="breadcrumb-item">Security</li>
+                <li class="active breadcrumb-item">Report Permission</li>
+            </ol>
+        </div>
+    </div>
+</header>
+<div class="col-md-4">
+    <div class="contact_form">
+        <div class="form-group">
+            <label>Application Name</label><span style="color: #f2731e;font-weight: bold;margin-left: 2px;">*</span>
+            @Html.DropDownListFor(model => model.AppId, ((IEnumerable<ESOL_BO.DbAccess.Security.UserApplicationDomain>)ViewBag.AppList).Select(option => new SelectListItem
+       {
+           Text = Html.DisplayTextFor(_ => option.ApplicationName).ToString(),
+           Value = option.ApplicationId.ToString(),
+           Selected = (Model != null)
+       }), "Select", new { @class = "form-control input-sm" })
+        </div>
+
+        <div class="form-group">
+            <label>Role Name</label><span style="color: #f2731e;font-weight: bold;margin-left: 2px;">*</span>
+            @Html.DropDownListFor(model => model.RoleId, ((IEnumerable<ESOL_BO.DbAccess.Security.UserRoleDomain>)ViewBag.RoleList).Select(option => new SelectListItem
+       {
+           Text = Html.DisplayTextFor(_ => option.RoleName).ToString(),
+           Value = option.RoleId.ToString(),
+           Selected = (Model != null)
+       }), "Select", new { @class = "form-control input-sm" })
+        </div>
+        <div>
+            <input type="button" id="btnSearch" value="Search" onclick="fnSearch();" class="btn btn-success btn-sm" />
+        </div>
+        <br />
+    </div>
+</div>
+<div class="col-md-8">
+    <div id="result"></div>
+</div>
+
+@section scripts
+{
+    <script>
+        function fnSearch() {
+            var rid = $("#RoleId").val();
+            var aid = $("#AppId").val();
+            $.ajax({
+                url: '@Url.Action("GetReportList", "ReportPermission")',
+                type: "GET",
+                data: {
+                    appId: aid,
+                    roleId: rid
+                },
+                success: function (result) {
+                    $("#result").html(result);
+                },
+                errop: function (result) {
+                    alert("Failed to Load Permission");
+                }
+            });
+        };
+    </script>
+}

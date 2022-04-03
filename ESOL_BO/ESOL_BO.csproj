@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5B14983C-E1D0-4DB2-B248-A9342C8C7DBE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ESOL_BO</RootNamespace>
+    <AssemblyName>ESOL_BO</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseDomain.cs" />
+    <Compile Include="ConnectionString.cs" />
+    <Compile Include="DataAccess.cs" />
+    <Compile Include="Ecommerce\EcommerceBadge.cs" />
+    <Compile Include="Ecommerce\EcommerceBrand.cs" />
+    <Compile Include="Ecommerce\EcommerceCardType.cs" />
+    <Compile Include="Ecommerce\EcommerceCategory.cs" />
+    <Compile Include="Ecommerce\EcommerceColor.cs" />
+    <Compile Include="Ecommerce\EcommerceCoupon.cs" />
+    <Compile Include="Ecommerce\EcommerceCurrency.cs" />
+    <Compile Include="Ecommerce\EcommerceCustomer.cs" />
+    <Compile Include="Ecommerce\EcommerceCustomerReview.cs" />
+    <Compile Include="Ecommerce\EcommerceHomePageSlider.cs" />
+    <Compile Include="Ecommerce\EcommerceNotice.cs" />
+    <Compile Include="Ecommerce\EcommerceOrder.cs" />
+    <Compile Include="Ecommerce\EcommerceOrderDetails.cs" />
+    <Compile Include="Ecommerce\EcommercePaymentType.cs" />
+    <Compile Include="Ecommerce\EcommerceProduct.cs" />
+    <Compile Include="Ecommerce\EcommerceProductGallery.cs" />
+    <Compile Include="Ecommerce\EcommerceProductStockInfo.cs" />
+    <Compile Include="Ecommerce\EcommerceRecentlyViews.cs" />
+    <Compile Include="Ecommerce\EcommerceServiceType.cs" />
+    <Compile Include="Ecommerce\EcommerceShippingDetails.cs" />
+    <Compile Include="Ecommerce\EcommerceShippingZone.cs" />
+    <Compile Include="Ecommerce\EcommerceSize.cs" />
+    <Compile Include="Ecommerce\EcommerceSubCategory.cs" />
+    <Compile Include="Ecommerce\EcommerceSubscriber.cs" />
+    <Compile Include="Ecommerce\EcommerceSubSubCategory.cs" />
+    <Compile Include="Ecommerce\EcommerceUnit.cs" />
+    <Compile Include="Ecommerce\EcommerceVatType.cs" />
+    <Compile Include="Ecommerce\EcommerceWeight.cs" />
+    <Compile Include="Ecommerce\EcommerceWishlist.cs" />
+    <Compile Include="Hr\District.cs" />
+    <Compile Include="Hr\Division.cs" />
+    <Compile Include="Hr\HrBloodGroup.cs" />
+    <Compile Include="Hr\HrDesignation.cs" />
+    <Compile Include="Hr\HrReligion.cs" />
+    <Compile Include="Hr\PostOffice.cs" />
+    <Compile Include="Hr\Thana.cs" />
+    <Compile Include="Merchant\MerchantUser.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\ChangePasswordDao.cs" />
+    <Compile Include="Security\CompanyDao.cs" />
+    <Compile Include="Security\RolePermissionDao.cs" />
+    <Compile Include="Security\ShowroomDao.cs" />
+    <Compile Include="Security\UserInfoDao.cs" />
+    <Compile Include="Security\UserRoleDao.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

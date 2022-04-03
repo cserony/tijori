@@ -1,0 +1,545 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_LayoutEcommerce.cshtml";
+}
+@section featuredOnline {
+    <div id="content" class="site-content global-layout-no-sidebar">
+        <div class="container">
+            <div class="inner-wrapper">
+                <div id="primary" class="content-area">
+                    <main id="main" class="site-main">
+                        <aside class="section no-padding">
+                            <div class="section-featured-slider">
+                                <div id="main-slider" class="cycle-slideshow  featrued-slider" data-cycle-fx="fadeout" data-cycle-speed="1000" data-cycle-pause-on-hover="true" data-cycle-loader="true" data-cycle-log="false" data-cycle-swipe="true" data-cycle-auto-height="container" data-cycle-timeout="3000" data-cycle-slides="article" data-pager-template='<span class="pager-box"></span>'>
+                                    <!-- prev/next links -->
+                                    <div class="cycle-prev"><i class="fas fa-angle-left" aria-hidden="true"></i></div>
+                                    <div class="cycle-next"><i class="fas fa-angle-right" aria-hidden="true"></i></div>
+                                    <!-- pager -->
+                                    <div class="cycle-pager"> </div>
+                                    @foreach (ESOL_BO.Ecommerce.EcommerceHomePageSliderDomain item in ViewBag.SliderAll)
+                                      {
+                                    <article class="first">
+                                        <div class="caption">
+                                            <div class="cycle-caption text-alignleft">
+                                                <p>@item.SliderName</p>
+                                                <h3><a href="javascript:void(0)">@item.SliderTag</a></h3>
+                                                <h4>@item.Description</h4>
+                                            </div> 
+                                        </div> 
+                                        <a href="javascript:void(0)">
+                                            <img src="../@Html.DisplayFor(modelItem => item.ImageName)" alt="Slider" />
+                                        </a>
+                                    </article> 
+
+                                   }
+
+                                </div><!-- #main-slider -->
+                            </div><!-- .section-featured-slider -->
+                        </aside> <!-- .section-featured-slider -->
+                        <aside class="section section-pormo">
+                            <div class="container">
+                                <div class="inner-wrapper">
+                                    <div class="col-grid-4">
+                                        <div class="pormo-item">
+                                            <div class="pormo-inner-wrapper zoom-effect-hover-container">
+                                                <div class="pormo-thumb zoom-effect">
+                                                    <a href="@Url.Action("product", "shop", new { Area = "" })"><img alt="Promo" src="web/images/shop/pormo-5.jpg"></a>
+                                                    <div class="pormo-info text-aligncenter">
+                                                        <div class="pormo-buttons">
+                                                            <a class="custom-button custom-white button-small" href="@Url.Action("product", "shop", new { Area = "" })">Shop Now</a>
+                                                        </div> <!-- .pormo-buttons -->
+                                                    </div>
+                                                </div><!-- .pormo-thumb -->
+                                            </div><!-- .pormo-inner-wrapper -->
+                                        </div><!-- .pormo-item -->
+                                    </div>
+                                    <div class="col-grid-4">
+                                        <div class="pormo-item">
+                                            <div class="pormo-inner-wrapper zoom-effect-hover-container">
+                                                <div class="pormo-thumb zoom-effect">
+                                                    <a href="@Url.Action("product", "shop", new { Area = "" })"><img alt="Promo" src="web/images/shop/pormo-6.jpg"></a>
+                                                    <div class="pormo-info text-aligncenter">
+                                                        <div class="pormo-buttons">
+                                                            <a class="custom-button custom-white button-small" href="@Url.Action("product", "shop", new { Area = "" })">Shop Now</a>
+                                                        </div> <!-- .pormo-buttons -->
+                                                    </div>
+                                                </div><!-- .pormo-thumb -->
+                                            </div><!-- .pormo-inner-wrapper -->
+                                        </div>
+                                        <div class="pormo-item top-space">
+                                            <div class="pormo-inner-wrapper zoom-effect-hover-container">
+                                                <div class="pormo-thumb zoom-effect">
+                                                    <a href="@Url.Action("product", "shop", new { Area = "" })"><img alt="Promo" src="web/images/shop/pormo-7.jpg"></a>
+                                                    <div class="pormo-info text-aligncenter">
+                                                        <div class="pormo-buttons">
+                                                            <a class="custom-button custom-white button-small" href="@Url.Action("product", "shop", new { Area = "" })">Shop Now</a>
+                                                        </div> <!-- .pormo-buttons -->
+                                                    </div>
+                                                </div><!-- .pormo-thumb -->
+                                            </div><!-- .pormo-inner-wrapper -->
+                                        </div><!-- .pormo-item -->
+                                    </div>
+                                    <div class="col-grid-4">
+                                        <div class="pormo-item">
+                                            <div class="pormo-inner-wrapper zoom-effect-hover-container">
+                                                <div class="pormo-thumb zoom-effect">
+                                                    <a href="@Url.Action("product", "shop", new { Area = "" })"><img alt="Promo" src="web/images/shop/pormo-8.jpg"></a>
+                                                    <div class="pormo-info text-aligncenter">
+                                                        <div class="pormo-buttons">
+                                                            <a class="custom-button custom-white button-small" href="@Url.Action("product", "shop", new { Area = "" })">Shop Now</a>
+                                                        </div> <!-- .pormo-buttons -->
+                                                    </div>
+                                                </div><!-- .pormo-thumb -->
+                                            </div><!-- .pormo-inner-wrapper -->
+                                        </div><!-- .pormo-item -->
+                                    </div>
+                                </div><!-- .inner-wrapper -->
+                            </div><!-- .container -->
+                        </aside>
+                        <aside class="section no-padding">
+                            <div class="section-product-categorys">
+                                <div class="container">
+                                    <div class="section-title-wrap">
+                                        <h2 class="section-title">Popular Category</h2>
+                                    </div>
+                                    <div class="inner-wrapper">
+                                        <div class="product-categorys-inner-wrapper section-carousel-enabled byapr-carousel" data-slick="{&quot;slidesToShow&quot;:4,&quot;dots&quot;:false,&quot;prevArrow&quot;:&quot;<span data-role=\&quot;none\&quot; class=\&quot;slick-prev\&quot; tabindex=\&quot;0\&quot;><i class=\&quot;fa fa-angle-left\&quot; aria-hidden=\&quot;true\&quot;><\/i><\/span>&quot;,&quot;nextArrow&quot;:&quot;<span data-role=\&quot;none\&quot; class=\&quot;slick-next\&quot; tabindex=\&quot;0\&quot;><i class=\&quot;fa fa-angle-right\&quot; aria-hidden=\&quot;true\&quot;><\/i><\/span>&quot;,&quot;responsive&quot;:[{&quot;breakpoint&quot;:1024,&quot;settings&quot;:{&quot;slidesToShow&quot;:4}},{&quot;breakpoint&quot;:800,&quot;settings&quot;:{&quot;slidesToShow&quot;:3}},{&quot;breakpoint&quot;:659,&quot;settings&quot;:{&quot;slidesToShow&quot;:2}},{&quot;breakpoint&quot;:479,&quot;settings&quot;:{&quot;slidesToShow&quot;:1}}]}">
+                                            @foreach (ESOL_BO.Ecommerce.EcommerceCategoryDomain item in ViewBag.CategoryAll)
+                                            {
+                                        <div class="product-item col-grid-3">
+                                            <div class="product-item-wrapper zoom-effect-hover-container box-shadow-block">
+                                                <div class="product-thumb zoom-effect">
+                                                    <a class="thumbnail" href="@Url.Action("products", "shop", new { Area = "", Slug =@item.Slug, CatId = 1 })"><img alt="@Html.DisplayFor(modelItem => item.CategoryName)" src="../@Html.DisplayFor(modelItem => item.ImageName)"></a>
+                                                </div>
+                                                <h3 class="category-title"><a href="@Url.Action("products", "shop", new { Area = "", Slug =@item.Slug, CatId = 1 })" title="@Html.DisplayFor(modelItem => item.CategoryName)">@Html.DisplayFor(modelItem => item.CategoryName)<span class="count"> @Html.DisplayFor(modelItem => item.CatCount)</span> </a></h3>
+                                            </div>
+                                        </div>
+                                            }
+                                        </div><!-- .product-categorys-inner-wrapper -->
+                                    </div><!-- .inner-wrapper -->
+                                </div> <!-- .container -->
+                            </div><!-- .section-product-categorys -->
+                        </aside><!-- .section -->
+                        <aside class="section">
+                            <div class="section-products">
+                                <div class="container">
+                                    <div class="section-title-wrap">
+                                        <h2 class="section-title">Featured Product</h2>
+                                    </div>
+                                    <div class="inner-wrapper">
+                                        <div class="products-inner-wrapper">
+                                            @foreach (ESOL_BO.Ecommerce.EcommerceProductDomain item in ViewBag.FeaturedProduct)
+                                            {
+                                        <div class="product-item col-grid-3">
+                                            <div class="product-item-wrapper zoom-effect-hover-container box-shadow-block">
+                                                <div class="product-thumb zoom-effect">
+                                                    <a class="thumbnail" href="@Url.Action("product", "shop", new { Area = "",slug=@item.Slug})"><img alt="@Html.DisplayFor(modelItem => item.ProductName)" src="../@Html.DisplayFor(modelItem => item.ImagePath)"></a>
+                                                    <div class="pruduct-buttons">
+                                                        <a href="@Url.Action("addToCart", "shop", new { Area = "",id=@item.ProductId})" class="product-button tooltip">
+                                                            <i class="fas fa-cart-plus"></i>
+                                                            <span class="tooltiptext tooltip-right">Add To Cart</span>
+                                                        </a>
+                                                        <a href="@(Session["CustomerPortal"]!=null ? Url.Action("wishlistAdd", "shop", new { Area = "",id=@item.ProductId}) :Url.Action("Login","customer"))" class="product-button tooltip"><i class="far fa-heart"></i><span class="tooltiptext tooltip-right">Wishlist</span></a>
+                                                    </div>
+                                                    <div class="quick-view">
+                                                        <a href="#quick-view-content-wrappr" class="custom-button button-small quick-view-link"><i class="far fa-eye"></i>Quick View</a>
+                                                    </div>
+                                                    <span class="ribbon-rotated hot-item">@Html.DisplayFor(modelItem => item.BadgeName)</span>
+                                                    @if (@item.Discount > 0)
+                                                            {
+                                                            <span class="ribbon-rotated onsale" style="margin-top: 25px;">
+                                                                @Html.DisplayFor(modelItem => item.Discount)% off
+                                                            </span>
+                                                            }
+                                                </div>
+                                                <div class="product-item-details">
+                                                    <h3 class="product-title"><a href="@Url.Action("product", "shop", new { Area = "",slug=@item.Slug})" title="@Html.DisplayFor(modelItem => item.ProductName)">@Html.DisplayFor(modelItem => item.ProductName)</a></h3>
+                                                    <div class="product-price-container">
+                                                        @if (@item.Discount > 0)
+                                                                {
+                                                                <del class="dis-price">৳@Html.DisplayFor(modelItem => item.RegularPrice)</del>
+                                                                }
+                                                        <span class="fix-price">৳@Html.DisplayFor(modelItem => item.SalePrice)</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                            }
+
+
+                                        </div><!-- .products-inner-wrapper -->
+                                    </div><!-- .inner-wrapper -->
+                                </div> <!-- .container -->
+                            </div><!-- .section-products -->
+                        </aside><!-- .section -->
+                        <aside class="section cta-background background-img attachment-fixed overlay-enabled">
+                            <div class="section-call-to-action">
+                                <div class="container">
+                                    <div class="inner-wrapper">
+                                        <div class="call-to-action-content col-grid-12 text-aligncenter">
+                                            <div class="call-to-action-description ">
+                                                <p>Limited Time Offer!</p>
+                                                <h2 class="big-size">TOM FORD COLLECTION</h2>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt <br />ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation.</p>
+                                            </div><!-- .call-to-action-description -->
+                                            <div class="call-to-action-buttons">
+                                                <a href="#" class="custom-button  button-medium">Our Services</a>
+                                            </div><!-- .call-to-action-buttons -->
+                                        </div><!-- .call-to-action-content -->
+                                    </div><!-- .inner-wrapper -->
+                                </div> <!-- .container -->
+                            </div> <!-- .call-to-action" -->
+                        </aside><!-- .section -->
+                        <aside class="section">
+                            <div class="section-products">
+                                <div class="container">
+                                    <div class="section-title-wrap">
+                                        <h2 class="section-title">New Products</h2>
+                                    </div>
+                                    <div class="products-tab-container">
+                                        <ul class="product-tab-list">
+                                            <li style="display: none;" class="tab active" data-carousel="product-tabs-2-new"><a href="#product-tabs-2-new">New Products</a></li>
+                                        </ul>
+                                        <div class="inner-wrapper">
+                                            <div id="product-tabs-2-new" class="">
+                                                <div class="products-inner-wrapper  section-carousel-enabled" data-slick="{&quot;slidesToShow&quot;:4,&quot;dots&quot;:false,&quot;prevArrow&quot;:&quot;<span data-role=\&quot;none\&quot; class=\&quot;slick-prev\&quot; tabindex=\&quot;0\&quot;><i class=\&quot;fa fa-angle-left\&quot; aria-hidden=\&quot;true\&quot;><\/i><\/span>&quot;,&quot;nextArrow&quot;:&quot;<span data-role=\&quot;none\&quot; class=\&quot;slick-next\&quot; tabindex=\&quot;0\&quot;><i class=\&quot;fa fa-angle-right\&quot; aria-hidden=\&quot;true\&quot;><\/i><\/span>&quot;,&quot;responsive&quot;:[{&quot;breakpoint&quot;:1024,&quot;settings&quot;:{&quot;slidesToShow&quot;:4}},{&quot;breakpoint&quot;:800,&quot;settings&quot;:{&quot;slidesToShow&quot;:3}},{&quot;breakpoint&quot;:659,&quot;settings&quot;:{&quot;slidesToShow&quot;:2}},{&quot;breakpoint&quot;:479,&quot;settings&quot;:{&quot;slidesToShow&quot;:1}}]}">
+                                                    @foreach (ESOL_BO.Ecommerce.EcommerceProductDomain item in ViewBag.NewProduct)
+                                                    {
+                                                <div class="product-item col-grid-3">
+                                                    <div class="product-item-wrapper zoom-effect-hover-container box-shadow-block">
+                                                        <div class="product-thumb zoom-effect">
+                                                            <a class="thumbnail" href="@Url.Action("product", "shop", new { Area = "",slug=@item.Slug})"><img alt="@Html.DisplayFor(modelItem => item.ProductName)" src="../@Html.DisplayFor(modelItem => item.ImagePath)"></a>
+                                                            <div class="pruduct-buttons">
+                                                                <a href="@Url.Action("addToCart", "shop", new { Area = "",id=@item.ProductId})" class="product-button tooltip">
+                                                                    <i class="fas fa-cart-plus"></i>
+                                                                    <span class="tooltiptext tooltip-right">Add To Cart</span>
+                                                                </a>
+                                                                <a href="@(Session["CustomerPortal"]!=null ? Url.Action("wishlistAdd", "shop", new { Area = "",id=@item.ProductId}) :Url.Action("Login","customer"))" class="product-button tooltip"><i class="far fa-heart"></i><span class="tooltiptext tooltip-right">Wishlist</span></a>
+                                                            </div>
+                                                            <div class="quick-view">
+                                                                <a href="#quick-view-content-wrappr" class="custom-button button-small quick-view-link"><i class="far fa-eye"></i>Quick View</a>
+                                                            </div>
+                                                            <span class="ribbon-rotated hot-item">@Html.DisplayFor(modelItem => item.BadgeName)</span>
+                                                            @if (@item.Discount > 0)
+                                                            {
+                                                            <span class="ribbon-rotated onsale" style="margin-top: 25px;">
+                                                                @Html.DisplayFor(modelItem => item.Discount)% off
+                                                            </span>
+                                                            }
+                                                        </div>
+                                                        <div class="product-item-details">
+                                                            <h3 class="product-title"><a href="@Url.Action("product", "shop", new { Area = "",slug=@item.Slug})" title="@Html.DisplayFor(modelItem => item.ProductName)">@Html.DisplayFor(modelItem => item.ProductName)</a></h3>
+                                                            <div class="product-price-container">
+                                                                @if (@item.Discount > 0)
+                                                                {
+                                                                <del class="dis-price">৳@Html.DisplayFor(modelItem => item.RegularPrice)</del>
+                                                                }
+                                                                <span class="fix-price">৳@Html.DisplayFor(modelItem => item.SalePrice)</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                    }
+
+                                                </div><!-- .products-inner-wrapper -->
+                                            </div>
+                                        </div><!-- .inner-wrapper -->
+                                    </div><!-- .products-tab-container -->
+                                </div> <!-- .container -->
+                            </div><!-- .section-products -->
+                        </aside><!-- .section -->
+                        <aside class="section no-padding">
+                            <div class="ads-banner">
+                                <div class="container">
+                                    <div class="inner-wrapper">
+                                        <div class="col-grid-8 zoom-effect-hover-container">
+                                            <div class="zoom-effect">
+                                                <a href="#"><img alt="banner" src="web/images/shop/ad-banner3.jpg"></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-grid-4 zoom-effect-hover-container">
+                                            <div class="zoom-effect">
+                                                <a href="#"><img alt="banner" src="web/images/shop/ad-banner4.jpg"></a>
+                                            </div>
+                                        </div>
+                                    </div><!-- .inner-wrapper -->
+                                </div><!-- .container -->
+                            </div><!-- .ads-banner -->
+                        </aside><!-- .section -->
+                        <aside class="section">
+                            <div class="section-products">
+                                <div class="container">
+                                    <div class="section-title-wrap">
+                                        <h2 class="section-title">Popular Product</h2>
+                                    </div>
+                                    <div class="inner-wrapper">
+                                        <div class="products-inner-wrapper">
+                                            @foreach (ESOL_BO.Ecommerce.EcommerceProductDomain item in ViewBag.PopularProduct)
+                                            {
+                                        <div class="product-item col-grid-3">
+                                            <div class="product-item-wrapper zoom-effect-hover-container box-shadow-block">
+                                                <div class="product-thumb zoom-effect">
+                                                    <a class="thumbnail" href="@Url.Action("product", "shop", new { Area = "",slug=@item.Slug})"><img alt="@Html.DisplayFor(modelItem => item.ProductName)" src="../@Html.DisplayFor(modelItem => item.ImagePath)"></a>
+                                                    <div class="pruduct-buttons">
+                                                        <a href="@Url.Action("addToCart", "shop", new { Area = "",id=@item.ProductId})" class="product-button tooltip">
+                                                            <i class="fas fa-cart-plus"></i>
+                                                            <span class="tooltiptext tooltip-right">Add To Cart</span>
+                                                        </a>
+                                                        <a href="@(Session["CustomerPortal"]!=null ? Url.Action("wishlistAdd", "shop", new { Area = "",id=@item.ProductId}) :Url.Action("Login","customer"))" class="product-button tooltip"><i class="far fa-heart"></i><span class="tooltiptext tooltip-right">Wishlist</span></a>
+                                                    </div>
+                                                    <div class="quick-view">
+                                                        <a href="#quick-view-content-wrappr" class="custom-button button-small quick-view-link"><i class="far fa-eye"></i>Quick View</a>
+                                                    </div>
+                                                    <span class="ribbon-rotated hot-item">@Html.DisplayFor(modelItem => item.BadgeName)</span>
+                                                    @if (@item.Discount > 0)
+                                                    {
+                                                    <span class="ribbon-rotated onsale" style="margin-top: 25px;">
+                                                        @Html.DisplayFor(modelItem => item.Discount)% off
+                                                    </span>
+                                                    }
+                                                </div>
+                                                <div class="product-item-details">
+                                                    <h3 class="product-title"><a href="@Url.Action("product", "shop", new { Area = "",slug=@item.Slug})" title="@Html.DisplayFor(modelItem => item.ProductName)">@Html.DisplayFor(modelItem => item.ProductName)</a></h3>
+                                                    <div class="product-price-container">
+                                                        @if (@item.Discount > 0)
+                                                        {
+                                                        <del class="dis-price">৳@Html.DisplayFor(modelItem => item.RegularPrice)</del>
+                                                        }
+                                                        <span class="fix-price">৳@Html.DisplayFor(modelItem => item.SalePrice)</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                            }
+                                        </div><!-- .products-inner-wrapper -->
+                                    </div><!-- .inner-wrapper -->
+                                </div> <!-- .container -->
+                            </div><!-- .section-products -->
+                        </aside><!-- .section -->
+                        <aside class="section lite-background minimal-padding boxed-width-section">
+                            <div class="section-news-letter">
+                                <div class="container">
+                                    <div class="col-grid-6 newsletter-text">
+                                        <span class="newsletter-icon pull-left">
+                                            <i class="icon-envelope"></i>
+                                        </span>
+                                        <div class="news-letter-title">
+                                            <h2>Subscribe Newsletter</h2>
+                                            <p>Enter your email and subscribe latest offers</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-grid-6">
+                                        <div class="news-letter-wrapper">
+                                            <form class="news-letter-form">
+                                                <input class="news-letter-email" type="email" id="Email" placeholder="Enter your email address">
+                                                <input class="news-letter-submit" type="button" value="Subscribe"  onclick="return Add();">
+                                            </form>
+                                        </div><!-- .news-letter-wrappers -->
+                                    </div>
+                                </div><!-- .container -->
+                            </div><!-- .section-news-letter -->
+                        </aside>
+                    </main> <!-- #main -->
+                </div> <!-- #primary -->
+            </div> <!-- .inner-wrapper -->
+        </div> <!-- .container -->
+    </div> <!-- #content-->
+
+    <div class="quick-view-content white-popup-block mfp-hide" id="quick-view-content-wrappr">
+        <div class="product-single">
+            <div class="inner-wrapper">
+                <div class="col-grid-6">
+                    <div class="single-thumb-detail clear-fix">
+                        <div class="single-main-thumb clear-fix">
+                            <div class="single-thumb"><span class="ribbon-rotated onsale">16% off</span><a href="#"><img alt="product" src="~/web/images/shop/product-1.jpg"></a></div>
+                            <div class="single-thumb"><span class="ribbon-rotated onsale">16% off</span><a href="#"><img alt="product" src="~/web/images/shop/product-2.jpg"></a></div>
+                            <div class="single-thumb"><span class="ribbon-rotated onsale">16% off</span><a href="#"><img alt="product" src="~/web/images/shop/product-3.jpg"></a></div>
+                            <div class="single-thumb"><span class="ribbon-rotated onsale">16% off</span><a href="#"><img alt="product" src="~/web/images/shop/product-4.jpg"></a></div>
+                        </div>
+                        <div class="pager-thumbnail  section-carousel-enabled">
+                            <div class="pager-thumb active"><img alt="product" src="~/web/images/shop/product-1.jpg"></div>
+                            <div class="pager-thumb"><img alt="product" src="~/web/images/shop/product-2.jpg"></div>
+                            <div class="pager-thumb"><img alt="product" src="~/web/images/shop/product-3.jpg"></div>
+                            <div class="pager-thumb"><img alt="product" src="~/web/images/shop/product-4.jpg"></div>
+                        </div><!-- .pager-thumbnail -->
+                    </div><!-- .single-thumb-detail -->
+                </div><!-- col-grid-6 -->
+                <div class="col-grid-6">
+                    <div class="summary entry-summary">
+                        <div class="product-item-details">
+                            <h2 class="product-title"><a href="#" title="title">Asymmetric Ruffle Skirt</a></h2>
+                            <div class="rating-wrapper clear-fix">
+                                <div class="product-ratings">
+                                    <span class="star active"></span>
+                                    <span class="star active"></span>
+                                    <span class="star active"></span>
+                                    <span class="star"></span>
+                                    <span class="star"></span>
+                                </div>
+                                <ul class="info-links">
+                                    <li><a href="#">(3.5) 54 Ratings </a> </li>
+                                    <li><a href="#">  4 Reviews  </a></li>
+                                </ul>
+                            </div><!-- .rating-wrapper -->
+                            <div class="product-price-container">
+                                <del class="dis-price">৳65.99</del>
+                                <span class="fix-price">৳45.99</span>
+                            </div><!-- .product-price-container -->
+                        </div><!-- .product-item-details -->
+                        <div class="item-content">
+                            <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus.</p>
+                        </div><!-- .item-content -->
+                        <div class="availability">
+                            <i class="fas fa-check-circle"></i>
+                            <span>200 in stock</span>
+                        </div><!-- .availability -->
+                        @*<div class="quick-filter filter-by-color">
+                                <div class="filter-color-container">
+                                    <a href="#" class="filter-color-box color-1 active"></a>
+                                    <a href="#" class="filter-color-box color-2"></a>
+                                    <a href="#" class="filter-color-box color-3"></a>
+                                    <a href="#" class="filter-color-box color-4"></a>
+                                    <a href="#" class="filter-color-box color-5"></a>
+                                    <a href="#" class="filter-color-box color-6"></a>
+                                </div>
+                            </div>*@
+                        @*<div class="quick-filter filter-by-size">
+                                <div class="filter-size-container">
+                                    <a href="#" class="filter-size-box active">xs</a>
+                                    <a href="#" class="filter-size-box">s</a>
+                                    <a href="#" class="filter-size-box">m</a>
+                                    <a href="#" class="filter-size-box">l</a>
+                                    <a href="#" class="filter-size-box">xl</a>
+                                </div>
+                            </div>*@
+                        <form class="single-cart" method="post">
+                            <input type="number" class="input-text" step="1" min="1" value="1">
+                            <button type="submit" name="add-ro-cart" class="custom-button button-small"> Add To Cart </button>
+                            <button type="submit" name="add-ro-cart" class="custom-button custom-secondary-button button-small"> Wishlist </button>
+                        </form><!-- .single-cart -->
+                        @*<div class="entry-meta product-meta">
+                                <h4>CATEGORY :</h4>
+                                <span class="cat-links">
+                                    <a href="#" rel="tag">Clothes,</a>
+                                    <a href="#" rel="tag">Winter</a>
+                                </span>
+                            </div>*@
+                        @*<div class="share-on">
+                                <h4>SHARE US:</h4>
+                                <div class="social-links text-alignleft">
+                                    <ul>
+                                        <li><a target="_blank" href="http://facebook.com/">Facebook</a></li>
+                                        <li><a target="_blank" href="http://twitter.com/">Twitter</a></li>
+                                        <li><a target="_blank" href="http://linkedin.com/">Linkedln</a></li>
+                                        <li><a target="_blank" href="http://youtube.com/">Linkedln</a></li>
+                                    </ul>
+                                </div>
+                            </div>*@
+                    </div>
+                </div><!-- .col-grid-6 -->
+            </div><!-- .inner-wrapper -->
+        </div> <!-- .product-single -->
+    </div><!-- #quick-view-content-wrappr -->
+    <div class="main-popup-wrapper white-popup-block mfp-hide" id="subscribe-popup">
+        <div class="banner banner-newsletter main-popup">
+            <div class="inner-wrapper">
+                <div class="main-popup-thumb col-grid-6">
+                    <a href="#"><img alt="img" src="web/images/shop/product-1.jpg"></a>
+                </div>
+                <div class="banner-info-wrapper col-grid-6">
+                    <h3> Signup to Newsletter</h3>
+                    <p>Hey Linten! Join us today and get access to our latest discounts and offers as well as daily tips and tricks.</p>
+                    <div class="subscribe-form-wrapper">
+                        <div class="news-letter-wrapper">
+                            <form class="news-letter-form">
+                                <input class="news-letter-email" type="email" id="addEmail" placeholder="Enter your email address">
+                                <input class="news-letter-submit" type="button" value="Subscribe" onclick="return AddEmail();">
+                            </form>
+                        </div>
+                        <div class="share-on-us text-alignleft clear-fix social-links circle brand-color">
+                            <ul>
+                                <li><a target="_blank" href="https://www.facebook.com/tijoribd">Facebook</a></li>
+                                <li><a target="_blank" href="http://twitter.com/">Twitter</a></li>
+                                <li><a target="_blank" href="http://linkedin.com/">Linkedln</a></li>
+                                <li><a target="_blank" href="http://youtube.com/">Linkedln</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div><!-- subscribe-form-wrapper -->
+            </div><!-- .banner-info-wrapper -->
+        </div><!-- .main-popup -->
+    </div><!-- .main-popup-wrapper -->
+
+<script type="text/javascript" src="~/Scripts/js/jquery.min.js"></script>
+<script type="text/javascript">
+
+    function validate() {
+        var isValid = true;
+        if ($("#Email").val().trim() == "") {
+            $("#Email").css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $("#Email").css('border-color', 'lightgrey');
+        }
+        return isValid;
+    }
+    function validate1() {
+        var isValid = true;
+        if ($("#addEmail").val().trim() == "") {
+            $("#addEmail").css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $("#addEmail").css('border-color', 'lightgrey');
+        }
+        return isValid;
+    }
+    function Add() {
+        var res = validate();
+        if (res == false) {
+            return false;
+        }
+        var InfoObj = {
+            Email: $('#Email').val(),
+        };
+        $.ajax({
+            url: "/web/Subscriber",
+            data: JSON.stringify(InfoObj),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result2) {
+                alert("Subscribe successfully");
+                window.location.reload();
+            },
+            error: function (errormessage) {
+                alert("Operation Fail...");
+            }
+        });
+    }
+    function AddEmail() {
+        var res = validate1();
+        if (res == false) {
+            return false;
+        }
+        var InfoObj = {
+            Email: $('#addEmail').val(),
+        };
+        $.ajax({
+            url: "/web/Subscriber",
+            data: JSON.stringify(InfoObj),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result2) {
+                alert("Subscribe successfully");
+                window.location.reload();
+            },
+            error: function (errormessage) {
+                alert("Operation Fail...");
+            }
+        });
+    }
+</script>
+}

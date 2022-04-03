@@ -1,0 +1,326 @@
+﻿@model ESOL_BO.Ecommerce.EcommerceProductDomain
+@{
+    ViewBag.Title = "products";
+    Layout = "~/Views/Shared/_LayoutEcommerce.cshtml";
+}
+<div id="custom-header">
+    <div class="custom-header-content">
+        <div class="container">
+            <h1 class="page-title">Product Details</h1>
+            <div id="breadcrumb">
+                <div aria-label="Breadcrumbs" class="breadcrumbs breadcrumb-trail">
+                    <ul class="trail-items">
+                        <li class="trail-item trail-begin"><a href="@Url.Action("Index", "Web", new { Area = "" })" rel="home"><span>Home</span></a></li>
+                        <li class="trail-item"><span>Shop</span></li>
+                        <li class="trail-item trail-end"><span>Product Details</span></li>
+                    </ul>
+                </div> <!-- .breadcrumbs -->
+            </div> <!-- #breadcrumb -->
+        </div> <!-- .container -->
+    </div>  <!-- .custom-header-content -->
+</div> <!-- .custom-header -->
+<div id="content" class="site-content global-layout-right-sidebar">
+    <div class="container">
+        <div class="inner-wrapper">
+            <div id="primary" class="content-area">
+                <main id="main" class="site-main">
+                    <div class="product-single">
+                        <div class="inner-wrapper">
+                            <div class="col-grid-6">
+                                <div class="single-thumb-detail">
+                                    <div class="single-main-thumb">
+                                        <div class="single-thumb"><span class="ribbon-rotated onsale">-@Html.DisplayFor(model => model.Discount)</span><a href="#"><img alt="product" src="../@Html.DisplayFor(modelItem => modelItem.ImagePath)"></a></div>
+                                        <div class="single-thumb"><span class="ribbon-rotated onsale">-@Html.DisplayFor(model => model.Discount)</span><a href="#"><img alt="product" src="~/web/images/shop/product-2.jpg"></a></div>
+                                        <div class="single-thumb"><span class="ribbon-rotated onsale">-@Html.DisplayFor(model => model.Discount)</span><a href="#"><img alt="product" src="~/web/images/shop/product-3.jpg"></a></div>
+                                    </div>
+                                    <div class="pager-thumbnail">
+                                        <div class="pager-thumb active"><img src="../@Html.DisplayFor(modelItem => modelItem.ImagePath)"></div>
+                                        <div class="pager-thumb"><img src="~/web/images/shop/product-2.jpg"></div>
+                                        <div class="pager-thumb"><img src="~/web/images/shop/product-3.jpg"></div>
+                                    </div> <!-- .pager-thumbnail---->
+                                </div><!-- .single-thumb-detail -->
+                            </div><!-- col-grid-6 -->
+                            <div class="col-grid-6">
+                                <div class="summary entry-summary">
+                                    <div class="product-item-details">
+                                        <h2 class="product-title"><a href="#" title="title">@Html.DisplayFor(model => model.ProductName)</a></h2>
+                                        <div class="rating-wrapper clear-fix">
+                                            <div class="product-ratings">
+                                                <span class="star active"></span>
+                                                <span class="star active"></span>
+                                                <span class="star active"></span>
+                                                <span class="star"></span>
+                                                <span class="star"></span>
+                                            </div>
+                                            <ul class="info-links">
+                                                <li><a href="#">(3.5) 54 Ratings </a> </li>
+                                                <li><a href="#">  4 Reviews  </a></li>
+                                            </ul>
+                                        </div><!-- .rating-wrapper -->
+                                        <div class="product-price-container">
+                                            @if (Model.Discount > 0)
+                                            {
+                                                <del class="dis-price">৳@Html.DisplayFor(model => model.RegularPrice)</del>
+                                            }
+                                            <span class="fix-price">৳@Html.DisplayFor(model => model.SalePrice)</span>
+                                        </div><!-- .product-price-container -->
+                                    </div><!-- .product-item-details -->
+                                    <div class="item-content">
+                                        <p>@Html.DisplayFor(model => model.ShortDescription)</p>
+                                    </div><!-- .item-content -->
+                                    @if (Model.Discount > 0)
+                                    {
+                                        <div class="availability">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>@Html.DisplayFor(model => model.Quantity) in stock</span>
+                                        </div><!-- .availability -->
+                                    }
+                                    else
+                                    {
+                                        <div class="availability">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Out of stock</span>
+                                        </div><!-- .availability -->
+                                    }
+                                    
+
+                                    <form class="single-cart" method="post">
+                                        <input type="number" class="input-text" step="1" min="1" value="1">
+                                        <a href="@Url.Action("addToCart", "shop", new { Area = "",id=Model.ProductId})" name="add-ro-cart" class="custom-button button-small"> Add To Cart </a>
+                                        <a href="@(Session["CustomerPortal"]!=null ? Url.Action("wishlistAdd", "shop", new { Area = "",id=Model.ProductId}) :Url.Action("Login","customer"))" name="add-ro-cart" class="custom-button custom-secondary-button button-small"> Wishlist </a>
+                                    </form><!-- .single-cart -->
+                                    @*<div class="share-on">
+                                        <h4>SHARE PRODUCT:</h4>
+                                        <div class="social-links text-alignleft">
+                                            <ul>
+                                                <li><a target="_blank" href="http://facebook.com/">Facebook</a></li>
+                                                <li><a target="_blank" href="http://twitter.com/">Twitter</a></li>
+                                                <li><a target="_blank" href="http://linkedin.com/">Linkedln</a></li>
+                                                <li><a target="_blank" href="http://youtube.com/">Linkedln</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>*@ <!-- .share-on -->
+                                    @*<div class="entry-meta product-meta">
+                                        <h4>CATEGORY :</h4>
+                                        <span class="cat-links">
+                                            <a href="#" rel="tag">Clothes,</a>
+                                            <a href="#" rel="tag">Winter</a>
+                                        </span>
+                                    </div>*@<!-- .entry-meta -->
+                                </div>
+                            </div><!-- .col-grid-6 -->
+                        </div><!-- .inner-wrapper -->
+                    </div> <!-- .product-single -->
+                    <div id="tabs" class="product-tabs wc-tabs-wrapper">
+                        <ul class="tabs wc-tabs nav-tabs" role="tablist">
+                            <li class="nav-item"><a href="#description">Description</a></li>
+                            <li class="nav-item"> <a href="#add-description"> Additional Description </a></li>
+                            <li class="nav-item"><a href="#reviews">Reviews</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="description">
+                                <h2>Description</h2>
+                                <p>@Html.DisplayFor(model => model.ShortDescription)</p>
+                            </div>
+                            <div class="tab-pane" id="add-description">
+                                <h2>Additional Description</h2>
+                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
+                            </div>
+                            <div class="tab-pane" id="reviews">
+                                <h2>Reviews</h2>
+                                <div id="woo-reviews" class="product-reviews">
+                                    <div id="comments">
+                                        <p class="product-noreviews">There are no reviews yet.</p>
+                                    </div> 
+                                    @if (Session["CustomerPortal"] != null)
+                                    {
+                                        <div id="review_form_wrapper">
+                                            <div class="review_form">
+                                                <div id="respond" class="comment-respond">                                                    
+                                                    @using (Html.BeginForm("AddReview", "shop", new { productId = @Model.ProductId }, FormMethod.Post))
+                                                    {
+                                                        <p class="comment-notes">
+                                                            <span id="email-notes">Write a Review for this product</span>
+                                                            <span class="required">*</span>
+                                                        </p>
+                                                        <div class="comment-form-rating">
+                                                            <label>Your Rating*</label>
+                                                            <div class="product-ratings">
+                                                                <span class="star"></span>
+                                                                <span class="star"></span>
+                                                                <span class="star"></span>
+                                                                <span class="star"></span>
+                                                                <span class="star"></span>
+                                                            </div>
+                                                        </div>
+                                                        <p class="comment-form-comment">
+                                                            <label for="comment">Your Review*</label>
+                                                            <textarea id="Review" name="Review" cols="45" rows="8" maxlength="65525" required="required"></textarea>
+                                                        </p>
+                                                        <p class="form-submit">
+                                                            <input name="submit" type="submit" class="submit" value="Submit">
+                                                        </p>
+                                                    }
+                                                </div>                                                
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <label>Please login to Add your important Review about product.</label>
+                                    }
+
+                                    
+                                </div> <!-- #reviews -->
+                            </div>
+                        </div>
+                    </div> <!-- .product-tabs -->
+                    <div class="section-products related-product clear-fix top-space">
+                        <div class="section-title-wrap text-alignleft">
+                            <h2 class="section-title">Related Product</h2>
+                            <span class="divider"></span>
+                        </div>
+                        <div class="inner-wrapper">
+                            <div class="products-inner-wrapper clear-fix section-carousel-enabled byapr-carousel" data-slick="{&quot;slidesToShow&quot;:3,&quot;dots&quot;:false,&quot;prevArrow&quot;:&quot;<span data-role=\&quot;none\&quot; class=\&quot;slick-prev\&quot; tabindex=\&quot;0\&quot;><i class=\&quot;fa fa-angle-left\&quot; aria-hidden=\&quot;true\&quot;><\/i><\/span>&quot;,&quot;nextArrow&quot;:&quot;<span data-role=\&quot;none\&quot; class=\&quot;slick-next\&quot; tabindex=\&quot;0\&quot;><i class=\&quot;fa fa-angle-right\&quot; aria-hidden=\&quot;true\&quot;><\/i><\/span>&quot;,&quot;responsive&quot;:[{&quot;breakpoint&quot;:1024,&quot;settings&quot;:{&quot;slidesToShow&quot;:3}},{&quot;breakpoint&quot;:800,&quot;settings&quot;:{&quot;slidesToShow&quot;:3}},{&quot;breakpoint&quot;:659,&quot;settings&quot;:{&quot;slidesToShow&quot;:2}},{&quot;breakpoint&quot;:479,&quot;settings&quot;:{&quot;slidesToShow&quot;:1}}]}">
+                                @foreach (ESOL_BO.Ecommerce.EcommerceProductDomain item in ViewBag.RelatedProduct)
+                                {
+                                    <div class="product-item col-grid-4">
+                                        <div class="product-item-wrapper zoom-effect-hover-container box-shadow-block">
+                                            <div class="product-thumb zoom-effect">
+                                                <a class="thumbnail" href="@Url.Action("product", "shop", new { Area = "",slug=@item.Slug})"><img alt="@Html.DisplayFor(modelItem => item.ProductName)" src="../@Html.DisplayFor(modelItem => item.ImagePath)"></a>
+                                                <div class="pruduct-buttons">
+                                                    <a href="@Url.Action("addToCart", "shop", new { Area = "",id=@item.ProductId})" class="product-button tooltip">
+                                                        <i class="fas fa-cart-plus"></i>
+                                                        <span class="tooltiptext tooltip-right">Add To Cart</span>
+                                                    </a>
+                                                    <a href="@(Session["CustomerPortal"]!=null ? Url.Action("wishlistAdd", "shop", new { Area = "",id=@item.ProductId}) :Url.Action("Login","customer"))" class="product-button tooltip"><i class="far fa-heart"></i><span class="tooltiptext tooltip-right">Wishlist</span></a>
+                                                </div>
+                                                <div class="quick-view">
+                                                    <a href="#quick-view-content-wrappr" class="custom-button button-small quick-view-link"><i class="far fa-eye"></i>Quick View</a>
+                                                </div>
+                                                <span class="ribbon-rotated hot-item">@Html.DisplayFor(modelItem => item.BadgeName)</span>
+                                                @if (@item.Discount > 0)
+                                                {
+                                                    <span class="ribbon-rotated onsale" style="margin-top: 25px;">
+                                                        @Html.DisplayFor(modelItem => item.Discount)% off
+                                                    </span>
+                                                }
+                                            </div>
+                                            <div class="product-item-details">
+                                                <h3 class="product-title"><a href="@Url.Action("product", "shop", new { Area = "",slug=@item.Slug})" title="@Html.DisplayFor(modelItem => item.ProductName)">@Html.DisplayFor(modelItem => item.ProductName)</a></h3>
+                                                <div class="product-price-container">
+                                                    @if (@item.Discount > 0)
+                                                    {
+                                                        <del class="dis-price">৳@Html.DisplayFor(modelItem => item.RegularPrice)</del>
+                                                    }
+                                                    <span class="fix-price">৳@Html.DisplayFor(modelItem => item.SalePrice)</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div><!-- .products-inner-wrapper -->
+                        </div><!-- .inner-wrapper -->
+                    </div><!-- .section-products -->
+                </main> <!-- #main -->
+            </div> <!-- #primary -->
+        </div> <!-- .inner-wrapper -->
+    </div> <!-- .container -->
+</div> <!-- #content-->
+<div class="quick-view-content white-popup-block mfp-hide" id="quick-view-content-wrappr">
+    <div class="product-single">
+        <div class="inner-wrapper">
+            <div class="col-grid-6">
+                <div class="single-thumb-detail clear-fix">
+                    <div class="single-main-thumb clear-fix">
+                        <div class="single-thumb"><span class="ribbon-rotated onsale">16% off</span><a href="#"><img alt="product" src="~/web/images/shop/product-1.jpg"></a></div>
+                        <div class="single-thumb"><span class="ribbon-rotated onsale">16% off</span><a href="#"><img alt="product" src="~/web/images/shop/product-2.jpg"></a></div>
+                        <div class="single-thumb"><span class="ribbon-rotated onsale">16% off</span><a href="#"><img alt="product" src="~/web/images/shop/product-3.jpg"></a></div>
+                        <div class="single-thumb"><span class="ribbon-rotated onsale">16% off</span><a href="#"><img alt="product" src="~/web/images/shop/product-4.jpg"></a></div>
+                    </div>
+                    <div class="pager-thumbnail  section-carousel-enabled">
+                        <div class="pager-thumb active"><img alt="product" src="~/web/images/shop/product-1.jpg"></div>
+                        <div class="pager-thumb"><img alt="product" src="~/web/images/shop/product-2.jpg"></div>
+                        <div class="pager-thumb"><img alt="product" src="~/web/images/shop/product-3.jpg"></div>
+                        <div class="pager-thumb"><img alt="product" src="~/web/images/shop/product-4.jpg"></div>
+                    </div><!-- .pager-thumbnail -->
+                </div><!-- .single-thumb-detail -->
+            </div><!-- col-grid-6 -->
+            <div class="col-grid-6">
+                <div class="summary entry-summary">
+                    <div class="product-item-details">
+                        <h2 class="product-title"><a href="#" title="title">Asymmetric Ruffle Skirt</a></h2>
+                        <div class="rating-wrapper clear-fix">
+                            <div class="product-ratings">
+                                <span class="star active"></span>
+                                <span class="star active"></span>
+                                <span class="star active"></span>
+                                <span class="star"></span>
+                                <span class="star"></span>
+                            </div>
+                            <ul class="info-links">
+                                <li><a href="#">(3.5) 54 Ratings </a> </li>
+                                <li><a href="#">  4 Reviews  </a></li>
+                            </ul>
+                        </div><!-- .rating-wrapper -->
+                        <div class="product-price-container">
+                            <del class="dis-price">৳65.99</del>
+                            <span class="fix-price">৳45.99</span>
+                        </div><!-- .product-price-container -->
+                    </div><!-- .product-item-details -->
+                    <div class="item-content">
+                        <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus.</p>
+                    </div><!-- .item-content -->
+                    <div class="availability">
+                        <i class="fas fa-check-circle"></i>
+                        <span>200 in stock</span>
+                    </div><!-- .availability -->
+                    @*<div class="quick-filter filter-by-color">
+                            <div class="filter-color-container">
+                                <a href="#" class="filter-color-box color-1 active"></a>
+                                <a href="#" class="filter-color-box color-2"></a>
+                                <a href="#" class="filter-color-box color-3"></a>
+                                <a href="#" class="filter-color-box color-4"></a>
+                                <a href="#" class="filter-color-box color-5"></a>
+                                <a href="#" class="filter-color-box color-6"></a>
+                            </div>
+                        </div>*@
+                    @*<div class="quick-filter filter-by-size">
+                            <div class="filter-size-container">
+                                <a href="#" class="filter-size-box active">xs</a>
+                                <a href="#" class="filter-size-box">s</a>
+                                <a href="#" class="filter-size-box">m</a>
+                                <a href="#" class="filter-size-box">l</a>
+                                <a href="#" class="filter-size-box">xl</a>
+                            </div>
+
+                        </div>*@
+                    <form class="single-cart" method="post">
+                        <input type="number" class="input-text" step="1" min="1" value="1">
+                        <button type="submit" name="add-ro-cart" class="custom-button button-small"> Add To Cart </button>
+                        <button type="submit" name="add-ro-cart" class="custom-button custom-secondary-button button-small"> Wishlist </button>
+                    </form><!-- .single-cart -->
+                    @*<div class="entry-meta product-meta">
+                            <h4>CATEGORY :</h4>
+                            <span class="cat-links">
+                                <a href="#" rel="tag">Clothes,</a>
+                                <a href="#" rel="tag">Winter</a>
+                            </span>
+                        </div>*@<!-- .entry-meta -->
+                    @*<div class="share-on">
+                            <h4>SHARE US:</h4>
+                            <div class="social-links text-alignleft">
+                                <ul>
+                                    <li><a target="_blank" href="http://facebook.com/">Facebook</a></li>
+                                    <li><a target="_blank" href="http://twitter.com/">Twitter</a></li>
+                                    <li><a target="_blank" href="http://linkedin.com/">Linkedln</a></li>
+                                    <li><a target="_blank" href="http://youtube.com/">Linkedln</a></li>
+                                </ul>
+                            </div>
+                        </div>*@
+                </div>
+            </div><!-- .col-grid-6 -->
+        </div><!-- .inner-wrapper -->
+    </div> <!-- .product-single -->
+</div><!-- #quick-view-content-wrappr -->

@@ -1,0 +1,139 @@
+﻿@model ESOL_BO.Ecommerce.EcommerceOrderDomain
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_LayoutEcommerce.cshtml";
+}
+<div id="custom-header">
+    <div class="custom-header-content">
+        <div class="container">
+            <h1 class="page-title">My Accounts</h1>
+            <div id="breadcrumb">
+                <div aria-label="Breadcrumbs" class="breadcrumbs breadcrumb-trail">
+                    <ul class="trail-items">
+                        <li class="trail-item trail-begin"><a href="@Url.Action("Index", "Web", new { Area = "" })" rel="home"><span>Home</span></a></li>
+                        <li class="trail-item trail-end"><span>Invoice</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="content" class="site-content default-full-width">
+    <div class="container">
+        <div class="inner-wrapper">
+            <main id="primary" class="content-area">
+                <main class="site-main" id="printableArea">
+                    <div class="row">
+                        <div class="col-grid-12">
+                            <div style="font-size: 20px; font-weight: bold; text-align: center;"><b>@Html.DisplayFor(model => model.OrgName)</b></div>
+                            <div style="font-size: 17px; font-weight: bold; text-align: center;"><b>@Html.DisplayFor(model => model.OrgAddress)</b></div>
+                            <div style="font-size: 17px; font-weight: bold; text-align: center;">Mobile: <b>@Html.DisplayFor(model => model.OrgMobileNo)</b></div>
+                            <div class="row" style="margin-bottom: 25px;">
+                                <div class="col-grid-4">
+                                    <span><b>Order Number:</b> <strong style="font-size: 15px;">@Html.DisplayFor(model => model.InvoiceNo)</strong></span>
+                                </div>
+                                <div class="col-grid-4">
+                                    <div style="border: 1px solid #000;font-size: 15px;font-weight: bold;height: 19px;line-height: 16px;margin: 0 auto;text-align: center;text-transform: uppercase;width: 85px;">INVOICE</div>
+                                </div>
+                                <div class="col-grid-4">
+                                    <span style="float: right;"><b>Date:</b> <span style="font-size: 15px;">@Html.DisplayFor(model => model.Date)</span></span>
+                                </div>
+                            </div>
+                            <div style="border-bottom: 1px dashed #000; font-size: 15px;"></div>
+                            <div style="font-size: 15px;" class="row">
+                                <div class="col-grid-6">
+                                    <span>
+                                        <b>Customer Name:</b> <strong style="font-weight: normal;">@Html.DisplayFor(model => model.CustomerName)</strong><br />
+                                        <b>Mobile No.:</b><strong style="font-weight: normal;">@Html.DisplayFor(model => model.MobileNo)</strong><br />
+                                    </span>
+                                </div>
+                                <div class="col-grid-6">
+                                    <span style="float: right;">
+                                        <b>Payment Method:</b><strong style="font-weight: normal;">@Html.DisplayFor(model => model.Path)</strong><br />
+                                        <b>Address:</b><strong style="font-weight: normal;">@Html.DisplayFor(model => model.Address)</strong><br />
+                                    </span>
+                                </div>
+                            </div>
+                            <div style="border-bottom: 1px dashed #000; font-size: 15px;"></div>
+                            <div class="row">
+                                <div class="col-grid-12">
+                                    <table>
+                                        <thead style="font-size: 14px;font-weight: bold;">
+                                            <tr>
+                                                <th style="width: 3%;">SL</th>
+                                                <th style="width: 60%;text-align: left;">Product</th>
+                                                <th style="width: 10%;text-align: center;">SKU</th>
+                                                <th style="width: 10%;text-align: center;">Price</th>
+                                                <th style="width: 10%;text-align: center;">Qty</th>
+                                                <th style="width: 10%;text-align: center;">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.ItemList)
+                                            {
+                                                <tr style="font-size: 13px;font-weight: bold;">
+                                                    <td style="font-size: 14px;padding-left: 5px;"></td>
+                                                    <td style="font-size: 14px;text-align: left;">@Html.DisplayFor(model => item.ProductName)</td>
+                                                    <td style="text-align: center;font-size: 14px;">@Html.DisplayFor(model => item.SKU)</td>
+                                                    <td style="text-align: center;font-size: 14px;">৳@Html.DisplayFor(model => item.ItemPrice)</td>
+                                                    <td style="text-align: center;font-size: 14px;">@Html.DisplayFor(model => item.Quantity)</td>
+                                                    <td style="text-align: center;font-size: 14px;">৳@Html.DisplayFor(model => item.TotalPrice)</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                        <tfoot>
+                                            <tr style="line-height: 15px;">
+                                                <td style="display: none"></td>
+                                                <td colspan="4"></td>
+                                                <td style="text-align: right;font-weight: bold;font-size: 14px;">Items Subtotal:</td>
+                                                <td style="font-weight: bold;font-size: 14px;text-align: center;">৳@Html.DisplayFor(model => model.TotalAmount)</td>
+                                            </tr>
+                                            <tr style="line-height: 15px;">
+                                                <td style="display: none"></td>
+                                                <td colspan="4" style="text-align: left;font-weight: bold;font-size: 14px;">In words: Taka @Html.DisplayFor(model => model.Notes)</td>
+                                                <td style="text-align: right;font-weight: bold;font-size: 14px;">Order Total:</td>
+                                                <td style="font-weight: bold;font-size: 14px;text-align: center;">৳@Html.DisplayFor(model => model.TotalAmount)</td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-grid-12">
+                                    <h3 style="border-top: 1px dashed #000;font-size: 14px;margin-top: 11px;text-align: center;">*** Thank you for shopping ***</h3>
+                                    <h3 style="font-size: 11px;margin-top: 8px;text-align: right;"># Developed By tijori.com.bd </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row no-print" id="printButton">
+                        <div class="col-grid-12">
+                            <button class="btn btn-success btn-sm" style="margin-right: 5px;" onclick="printDiv('printableArea')">
+                                <i class="fa fa-print"></i> Print
+                            </button>
+                        </div>
+                    </div>
+                </main>
+            </main>
+        </div>
+    </div>
+</div>
+<script>
+    function printDiv(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        $("#printButton").hide();
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
+    var table = document.getElementsByTagName('table')[0],
+    rows = table.getElementsByTagName('tr'),
+    text = 'textContent' in document ? 'textContent' : 'innerText';
+    console.log(text);
+
+    for (var i = 1, len = rows.length; i < len; i++) {
+        rows[i].children[0][text] = i + rows[i].children[0][text];
+    }
+</script>
+

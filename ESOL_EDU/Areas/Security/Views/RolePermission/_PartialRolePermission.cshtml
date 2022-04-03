@@ -1,0 +1,82 @@
+﻿@using ESOL_BO.DbAccess.Security
+@model IEnumerable<RolePermissionDomain>
+@{
+    var roleId = (int) ViewBag.RoleId;
+    int i = 0;
+}
+<div class="table-responsive">
+     <p><label><input type="checkbox" id="checkAll"/> Check all</label></p>
+    @using (Html.BeginForm("Create", "RolePermission", FormMethod.Post, new { id = "frmCollection" }))
+    {
+    
+        <table class="table table-bordered table-hover table-striped">
+            <tr class="danger">
+                <th style="width:150px">Menu Name
+                </th>
+                <th>Create
+                </th>
+                <th>Edit
+                </th>
+                <th>Delete
+                </th>
+                <th>View
+                </th>
+            </tr>
+
+            @foreach (RolePermissionDomain item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MenuName)
+                        @Html.Hidden("lists[" + i + "].RolePermissionId",item.RolePermissionId)
+                        @Html.Hidden("lists[" + i + "].RoleId",roleId)
+                        @Html.Hidden("lists[" + i + "].AppId",item.AppId)
+                        @Html.Hidden("lists[" + i + "].ModuleId",item.ModuleId)
+                        @Html.Hidden("lists[" + i + "].MenuId",item.MenuId)
+              
+                    </td>
+                    <td>
+                        @Html.CheckBox("lists[" + i + "].IsCreate",item.IsCreate)
+                    </td>
+                    <td>
+                        @Html.CheckBox("lists[" + i + "].IsEdit",item.IsEdit)
+                    </td>
+                    <td>
+                        @Html.CheckBox("lists[" + i + "].IsDelete",item.IsDelete)
+                    </td>
+                    <td>
+                        @Html.CheckBox("lists[" + i + "].IsView",item.IsView)
+                    </td>
+                </tr>
+                i++;
+            }
+
+        </table>
+
+        <p>
+            <input type="submit" id="btnSave" value="Permission" class="btn btn-success btn-sm" />
+        </p>
+    }
+</div>
+<script>
+
+    $('#frmCollection').submit(function () {
+        var serializedForm = $(this).serialize();
+        $.ajax({
+            url: '@Url.Action("Create", "RolePermission", new { area = "Security" })',
+            type: "POST",
+            data: serializedForm,
+            success: function (result) {
+                alert("Permission Success");
+                $("#rolePermission").html("");
+            },
+            error: function (result) {
+                alert("Failed");
+            }
+        });
+        return false;
+    });
+    $("#checkAll").change(function () {
+        $("input:checkbox").prop('checked', $(this).prop("checked"));
+    });
+</script>

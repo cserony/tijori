@@ -1,0 +1,135 @@
+﻿@using Kendo.Mvc.UI
+@using ESOL_BO.Hr;
+@using ESOL_EDU.Helper
+@{
+    ViewBag.Title = "Blood Group Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<header class="head">
+    <div class="main-bar row">
+        <div class="col-sm-5 col-lg-6 skin_txt">
+            <h4 class="nav_top_align"><i class="fa fa-pencil"></i>Blood Group Lists</h4>
+        </div>
+        <div class="col-sm-7 col-lg-6">
+            <ol class="breadcrumb float-xs-right nav_breadcrumb_top_align">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home", new { Area = "" })"><i data-tags="" data-pack="default" class="fa fa-home"></i>Employee Management</a></li>
+                <li class="breadcrumb-item">Setup</li>
+                <li class="active breadcrumb-item">Blood Group</li>
+            </ol>
+        </div>
+    </div>
+</header>
+<div class="outer">
+    <div class="inner bg-container">
+        <div class="row card">
+            <div class="col-md-12">
+                @if (AppHelper.CheckPermission("DesignationController", "Create"))
+                {
+                    @Html.ActionLink("Add Blood Group", "Create", null, new {@class = "btn btn-sm btn-primary list_home"})
+                }
+            </div>
+            <div class="col-md-12">
+                @(Html.Kendo().Grid<HrBloodGroupDomain>()
+              .Name("xd")
+              .Columns(columns =>
+              {
+                  columns.Template(t => { }).Title("Sl").ClientTemplate("#= renderNumber(data) #").Width(30);
+                  columns.Bound(p => p.BloodGroupName).Filterable(true).Width(200);
+                  if (AppHelper.CheckPermission("BloodGroupController", "Edit"))
+                  {
+                      columns.Bound(p => p.Edit).ClientTemplate(@Html.ActionLink("Edit", "Edit", new {ID = "#=BloodGroupId#" }, new {@class = "btn btn-sm btn-warning"}).ToHtmlString()).Filterable(false).Width(50);
+                  }
+                  if (AppHelper.CheckPermission("BloodGroupController", "Delete"))
+                  {
+                      columns.Bound(p => p.Delete).ClientTemplate(@Html.ActionLink("Delete", "Delete", new {ID = "#=BloodGroupId#" }, new {@class = "cancelDialog btn btn-sm btn-danger"}).ToHtmlString()).Filterable(false).Width(50);
+                  }
+              })
+              .Pageable(pageable => pageable.Refresh(true).PageSizes(new int[] { 10, 25, 50, 100, 200, 500 }))
+              .Scrollable(src => src.Height(300))
+              .Selectable()
+              .Filterable()
+              .Groupable()
+              .DataSource(dataSource => dataSource
+                  .Ajax()
+                  .PageSize(10)
+                  .Model(model => model.Id(x => x.BloodGroupId))
+                  .Read(read => read.Action("Read", "BloodGroup", new { area = "Hr" }))
+              )
+              .Events(ev => ev.DataBound("resetRownumber"))
+              .ToolBar(t => t
+                  .Custom()
+                  .HtmlAttributes(new { id = "btnExport" })
+                  .Text("Export Excel")
+                  .Action("Read", "BloodGroup", new { Area = "Hr" }))
+
+                      )                
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/js/jquery.min.js"></script>
+<script>
+    $(document).on('click', '.cancelDialog', function (e) {
+        try {
+            e.preventDefault();
+            var grid = $("#xd").data("kendoGrid");
+            var dataItem = grid.dataItem($(e.currentTarget).closest("tr"));
+            if (confirm("Are you want to Delete?")) {
+                $.ajax({
+                    url: '@Url.Action("Delete", "BloodGroup", new { area = "Hr" })',
+                    type: "POST",
+                    data: { id: dataItem.BloodGroupId },
+                    success: function (result) {
+                        window.location.reload();
+                    },
+                    error: function (result) {
+                        alert("Not Deleted!");
+                    }
+                });
+            }
+            return false;
+        } catch (e) {
+
+            alert(e.response);
+        }
+    });
+    $("#btnExport").click(function(e) {
+        var dataSource = $("#xd").data("kendoGrid").dataSource;
+        var filteredDataSource = new kendo.data.DataSource({
+            data: dataSource.data(),
+            filter: dataSource.filter()
+        });
+        filteredDataSource.read();
+        var data = filteredDataSource.view();
+        var result = "data:application/vnd.ms-excel,";
+        result += "<table><tr><th>CountryName</th></tr>";
+
+        for (var i = 0; i < data.length; i++) {
+            result += "<tr>";
+
+            result += "<td>";
+            result += data[i].CountryName;
+            result += "</td>";
+            result += "</tr>";
+        }
+
+        result += "</table>";
+        if (window.navigator.msSaveBlob) {
+            window.navigator.msSaveBlob(new Blob([result]), 'export.xls');
+        } else {
+            window.open(result);
+        }
+
+        e.preventDefault();
+    });
+
+    var rowNumber = 0;
+
+    function renderNumber(data) {
+        return ++rowNumber;
+    }
+
+    function resetRownumber(data) {
+        rowNumber = 0;
+    }
+</script>

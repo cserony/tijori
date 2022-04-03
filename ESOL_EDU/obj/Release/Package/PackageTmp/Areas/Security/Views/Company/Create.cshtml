@@ -1,0 +1,73 @@
+﻿@using Kendo.Mvc.UI
+@model ESOL_BO.DbAccess.Security.CompanyDomain
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<header class="head">
+    <div class="main-bar row">
+        <div class="col-sm-5 col-lg-6 skin_txt">
+            <h4 class="nav_top_align"><i class="fa fa-pencil"></i>Company Add</h4>
+        </div>
+        <div class="col-sm-7 col-lg-6">
+            <ol class="breadcrumb float-xs-right nav_breadcrumb_top_align">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home", new { Area = "" })"><i data-tags="" data-pack="default" class="fa fa-home"></i>Dashboard</a></li>
+                <li class="breadcrumb-item">Admin</li>
+                <li class="active breadcrumb-item">Company Information</li>
+            </ol>
+        </div>
+    </div>
+</header>
+<div class="outer">
+    <div class="inner bg-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-white">Input Fields</div>
+                    <div id="dvmessage">
+                        @if (@ViewBag.Message != null)
+                        {
+                            <p style="color: green;margin-left: 18px;">@ViewBag.Message </p>
+                        }
+                        @if (@ViewBag.Error != null)
+                        {
+                            <p style="color: red">@ViewBag.Error </p>
+                        }
+                    </div>
+                    <div class="card-block">
+                        @using (Html.BeginForm("Create", "Company", FormMethod.Post, new { @id = "createform", @class = "contact_form" }))
+                        {
+                            @Html.ValidationSummary(true)
+                            @Html.Partial("_CreateOrEdit", Model)
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/js/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#CompanyName").focus();
+        $("#btnSave").click(function () {
+            $("#createform").submit();
+        });
+        $("#AgreementDate").kendoDatePicker({
+            format: "dd/MM/yyyy",
+            animation: false,
+            value: new Date(),
+        });
+        $("#btncancel").click(function () {
+            if (confirm("Do You Want To Cancel this page?")) {
+                location.href = '@Url.Action("Index", "Company", new { Area = "Setup" })';
+            }
+        });
+    });
+    function resetFunction() {
+        document.getElementById("createform").reset();
+    }
+ 
+</script>
+

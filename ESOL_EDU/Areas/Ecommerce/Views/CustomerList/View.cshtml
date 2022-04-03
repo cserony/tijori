@@ -1,0 +1,61 @@
+﻿@model ESOL_BO.Ecommerce.EcommerceCustomerDomain
+@{
+    ViewBag.Title = "Customer Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<header class="head">
+    <div class="main-bar row">
+        <div class="col-sm-5 col-lg-6 skin_txt">
+            <h4 class="nav_top_align"><i class="fa fa-pencil"></i>Customer Details</h4>
+        </div>
+        <div class="col-sm-7 col-lg-6">
+            <ol class="breadcrumb float-xs-right nav_breadcrumb_top_align">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home", new { Area = "" })"><i data-tags="" data-pack="default" class="fa fa-home"></i>E-commerce Panel</a></li>
+                <li class="breadcrumb-item">Customer</li>
+                <li class="active breadcrumb-item">List</li>
+            </ol>
+        </div>
+    </div>
+</header>
+<div class="outer">
+    <div class="inner bg-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-white">Details</div>
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card inline_section_align">
+                                    <div class="card-header bg-white">
+                                        Customer Information 
+                                    </div>
+                                    <div class="card-block">
+                                        <span class="text-success">Name:</span> @Html.DisplayFor(model => model.CustomerName)<br />
+                                        <span class="text-success">Mobile No.:</span> @Html.DisplayFor(model => model.MobileNo)<br />
+                                        <span class="text-success">User Name:</span> @Html.DisplayFor(model => model.UserName)<br />
+                                        <span class="text-success">Password:</span> @Html.DisplayFor(model => model.Password)<br />
+                                        <span class="text-success">Email:</span> @Html.DisplayFor(model => model.Email)<br />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card inline_section_align">
+                                    <div class="card-header bg-white">
+                                        Address Info
+                                    </div>
+                                    <div class="card-block">
+                                        <span class="text-success">Present Address:</span> @Html.DisplayFor(model => model.PresentAddress)<br />
+                                        <span class="text-success">Permanent Address:</span> @Html.DisplayFor(model => model.PermanentAddress)<br />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p style="margin-left: 19px;">@Html.ActionLink("Go to list", "Index")</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

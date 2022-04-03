@@ -1,0 +1,34 @@
+﻿@model IEnumerable<ESOL_BO.DbAccess.Security.UserMenuDomain>
+@{
+    List<ESOL_BO.DbAccess.Security.UserMenuDomain> list = Model as List<ESOL_BO.DbAccess.Security.UserMenuDomain>;
+    if (list != null && list.Count > 0)
+    {
+        var parent = list.Where(e => e.ParentMenuId == 0).ToList();
+        foreach (var item in parent)
+        {
+            var child = list.Where(e => e.ParentMenuId == item.MenuId).ToList();
+            if (child.Count == 0)
+            {
+                <li>
+
+                    <a href="@item.PageUrl"><i class="@item.MenuIcon"></i><span class="link-title">&nbsp; @item.MenuName</span></a>
+                </li>
+            }
+            else
+            {
+                <li>
+
+                    <a href="@item.PageUrl"><i class="@item.MenuIcon"></i><span class="link-title">&nbsp; @item.MenuName</span><span class="fa arrow"></span></a>
+                    <ul>
+                        @foreach (var menu in child)
+                        {
+                            <li><a href="@menu.PageUrl"><i class="fa fa-angle-right"></i>&nbsp; @menu.MenuName</a></li>
+                        }
+                    </ul>
+                </li>
+            }
+        }
+    }
+}
+
+

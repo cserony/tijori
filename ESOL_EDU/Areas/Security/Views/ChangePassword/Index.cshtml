@@ -1,0 +1,97 @@
+﻿@model ESOL_BO.DbAccess.Security.ChangePasswordDomain
+
+@{
+    ViewBag.Title = "Change Password";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<header class="head">
+    <div class="main-bar row">
+        <div class="col-sm-5 col-lg-6 skin_txt">
+            <h4 class="nav_top_align"><i class="fa fa-pencil"></i>Change Password</h4>
+        </div>
+        <div class="col-sm-7 col-lg-6">
+            <ol class="breadcrumb float-xs-right nav_breadcrumb_top_align">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home", new { Area = "" })"><i data-tags="" data-pack="default" class="fa fa-home"></i>Dashboard</a></li>
+                <li class="breadcrumb-item">Admin</li>
+                <li class="active breadcrumb-item">Change Password</li>
+            </ol>
+        </div>
+    </div>
+</header>
+<div class="outer">
+    <div class="inner bg-container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header bg-white">Input Fields</div>
+                    <div class="card-block">
+                        @using (Html.BeginForm("Create", "ChangePassword", FormMethod.Post, new { @id = "createform1", @class = "contact_form" }))
+                        {
+                            @Html.ValidationSummary(true)
+                            @Html.HiddenFor(model => model.UserId)
+                            <div class="form-group">
+                                <label>User Name</label>
+                                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control input-sm", @readonly = true })
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                @Html.PasswordFor(model => model.Password, new { @class = "form-control input-sm" })
+                            </div>
+                            <div class="form-group">
+                                <label>Confirm Password</label>
+                                @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control input-sm" })
+                            </div>
+                            <div class="">
+                                <input type="button" value="Update" id="btnSave" class="btn btn-success btn-sm" />
+                            </div>
+                        }
+                    </div>
+                    <div id="dvmessage" style="margin-left: 20px;">
+                        @if (@ViewBag.Message != null)
+                        {
+                            <p style="color: green">@ViewBag.Message </p>
+                        }
+                        @if (@ViewBag.Error != null)
+                        {
+                            <p style="color: red">@ViewBag.Error </p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="~/Scripts/js/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#btnSave").click(function (e) {
+            var pass = $("#Password").val();
+            var conpass = $("#ConfirmPassword").val();
+            if (pass == "") {
+                alert("Password Cannot Blank");
+                return;
+            } else if (conpass == "") {
+                alert("Please Confirm Password");
+                return;
+            } else {
+                $("#createform1").submit();
+            }
+        });
+        $("#UserName").val("@ViewBag.UserName");
+    });
+    $("#ConfirmPassword").on('change', function () {
+        var pass = $("#Password").val();
+        var conpass = $("#ConfirmPassword").val();
+        if (pass != conpass) {
+            alert("Password Cannot Match");
+            $("#ConfirmPassword").val("");
+            $("#ConfirmPassword").focus();
+        }
+    });
+    $(document).ready(function (e) {
+        setTimeout(function () {
+            $('#dvmessage').fadeOut('fast');
+        }, 2000);
+    });
+</script>
+

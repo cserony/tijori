@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESOL_EDU", "ESOL_EDU\ESOL_EDU.csproj", "{2948F858-ABB4-46CF-8876-3A108C295C5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESOL_BO", "ESOL_BO\ESOL_BO.csproj", "{5B14983C-E1D0-4DB2-B248-A9342C8C7DBE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcommerceApi", "EcommerceApi\EcommerceApi.csproj", "{ECF3063F-10D2-4FB7-97E4-B091D1CEFEA5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2948F858-ABB4-46CF-8876-3A108C295C5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2948F858-ABB4-46CF-8876-3A108C295C5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2948F858-ABB4-46CF-8876-3A108C295C5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2948F858-ABB4-46CF-8876-3A108C295C5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B14983C-E1D0-4DB2-B248-A9342C8C7DBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B14983C-E1D0-4DB2-B248-A9342C8C7DBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B14983C-E1D0-4DB2-B248-A9342C8C7DBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B14983C-E1D0-4DB2-B248-A9342C8C7DBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECF3063F-10D2-4FB7-97E4-B091D1CEFEA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECF3063F-10D2-4FB7-97E4-B091D1CEFEA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECF3063F-10D2-4FB7-97E4-B091D1CEFEA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECF3063F-10D2-4FB7-97E4-B091D1CEFEA5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

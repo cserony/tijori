@@ -1,0 +1,267 @@
+﻿@model IEnumerable<ESOL_BO.Ecommerce.EcommerceProductDomain>
+@{
+    ViewBag.Title = "product";
+    Layout = "~/Views/Shared/_LayoutEcommerce.cshtml";
+}
+<div id="custom-header">
+    <div class="custom-header-content">
+        <div class="container">
+            <h1 class="page-title">Shop</h1>
+            <div id="breadcrumb">
+                <div aria-label="Breadcrumbs" class="breadcrumbs breadcrumb-trail">
+                    <ul class="trail-items">
+                        <li class="trail-item trail-begin"><a href="@Url.Action("Index", "Web", new { Area = "" })" rel="home"><span>Home</span></a></li>
+                        <li class="trail-item trail-end"><span>Shop</span></li>
+                    </ul>
+                </div> 
+            </div> 
+        </div> 
+    </div>  
+</div> 
+<div id="content" class="site-content global-layout-left-sidebar">
+    <div class="container">
+        <div class="inner-wrapper">
+            <div id="primary" class="content-area">
+                <main id="main" class="site-main">
+                    <div class="section-products">
+                        <div class="pruduct-filter-row clear-fix">
+                            <div class="filter-row-box product-view pull-left">
+                                <a href="#l" class="cat-grid active" title="Category grid"><i class="fa fa-th"></i></a>
+                                <a href="#" class="cat-list" title="Category List"><i class="fa fa-th-list"></i></a>
+                            </div>
+                            <div class="filter-row-box product-listing-filter">
+                                <div class="sort-by">
+                                    <span class="sort-by-list">Sort by popularity</span>
+                                    <ul>
+                                        <li><a href="#">Sort by popularity</a></li>
+                                        <li><a href="#">Sort by average rating</a></li>
+                                        <li><a href="#">Sort by newness</a></li>
+                                        <li><a href="#">Sort by price: low to high</a></li>
+                                        <li><a href="#">Sort by price: high to low</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <nav class="filter-row-box navigation pagination  pull-right">
+                                <div class="nav-links">
+                                    <span class="page-numbers current">1</span>
+                                    <a class="page-numbers" href="#">2</a>
+                                    <a class="page-numbers" href="#">3</a>
+                                    <a class="next page-numbers" href="#">Next »</a>
+                                </div> <!-- .nav-links -->
+                            </nav> <!-- .navigation.pagination -->
+                        </div>
+                        <div class="inner-wrapper">
+                            <div class="products-inner-wrapper clear-fix">
+                                @if (Model != null)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <div class="product-item col-grid-4 top-space">
+                                            <div class="product-item-wrapper zoom-effect-hover-container box-shadow-block">
+                                                <div class="product-thumb zoom-effect">
+                                                    <a class="thumbnail" href="@Url.Action("product", "shop", new { Area = "",slug=@item.Slug})"><img alt="@Html.DisplayFor(modelItem => item.ProductName)" src="../@Html.DisplayFor(modelItem => item.ImagePath)"></a>
+                                                    <div class="pruduct-buttons">
+                                                        <a href="@Url.Action("addToCart", "shop", new { Area = "",id=@item.ProductId})" class="product-button tooltip">
+                                                            <i class="fas fa-cart-plus"></i>
+                                                            <span class="tooltiptext tooltip-right">Add To Cart</span>
+                                                        </a>
+                                                        <a href="@(Session["CustomerPortal"]!=null ? Url.Action("wishlistAdd", "shop", new { Area = "",id=@item.ProductId}) :Url.Action("Login","customer"))" class="product-button tooltip"><i class="far fa-heart"></i><span class="tooltiptext tooltip-right">Wishlist</span></a>
+                                                    </div>
+                                                    <div class="quick-view">
+                                                        <a href="#quick-view-content-wrappr" class="custom-button button-small quick-view-link"><i class="far fa-eye"></i>Quick View</a>
+                                                    </div>
+                                                    <span class="ribbon-rotated hot-item">@Html.DisplayFor(modelItem => item.BadgeName)</span>
+                                                    @if (@item.Discount > 0)
+                                                    {
+                                                        <span class="ribbon-rotated onsale" style="margin-top: 25px;">
+                                                            @Html.DisplayFor(modelItem => item.Discount)% off
+                                                        </span>
+                                                    }
+                                                </div>
+                                                <div class="product-item-details">
+                                                    <h3 class="product-title"><a href="@Url.Action("product", "shop", new { Area = "",slug=@item.Slug})" title="@Html.DisplayFor(modelItem => item.ProductName)">@Html.DisplayFor(modelItem => item.ProductName)</a></h3>
+                                                    <div class="product-price-container">
+                                                        @if (@item.Discount > 0)
+                                                        {
+                                                            <del class="dis-price">৳@Html.DisplayFor(modelItem => item.RegularPrice)</del>
+                                                        }
+                                                        <span class="fix-price">৳@Html.DisplayFor(modelItem => item.SalePrice)</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <h3>product not found</h3>
+                                }
+                            </div>
+                        </div>
+                        <div class="pruduct-filter-row clear-fix top-space">
+                            <div class="filter-row-box pull-left">
+                                <span>Showing: 1-12 of 16</span>
+                            </div>
+                            <nav class="filter-row-box navigation pagination  pull-right">
+                                <div class="nav-links">
+                                    <span class="page-numbers current">1</span>
+                                    <a class="page-numbers" href="#">2</a>
+                                    <a class="page-numbers" href="#">3</a>
+                                    <a class="next page-numbers" href="#">Next »</a>
+                                </div> <!-- .nav-links -->
+                            </nav> <!-- .navigation.pagination -->
+                        </div>
+                    </div><!-- .section-products -->
+                </main> <!-- #main -->
+            </div> <!-- #primary -->
+            <div id="sidebar-primary" class="sidebar widget-area">
+                <div class="sidebar-widget-wrapper">
+                    <aside id="product-price-filter" class="widget widget-price-filter">
+                        <h3 class="widget-title">Filter By Price</h3>
+                        <form>
+                            <div id="slider-range"></div>
+                            <input type="text" id="amount">
+                            <input type="submit" class="custom-button button-small" value="Filter">
+                        </form>
+                    </aside>
+                    <aside class="widget widget-category">
+                        <h3 class="widget-title ">Categories</h3>
+                        <ul>
+                            @foreach (ESOL_BO.Ecommerce.EcommerceCategoryDomain item in ViewBag.Category)
+                            {
+                                <li class="has-child">
+                                    <a href="@Url.Action("products", "shop", new { Area = "", Slug =@item.Slug, CatId = 1 })">@item.CategoryName</a>
+                                    <ul class="sub-menu">
+                                        @{
+                                            var subCat = ESOL_BO.DbAccess.DataAccess.EcommerceSubCategory.GetByOrg("select sc.*,c.CategoryName from EcommerceSubCategory sc left join EcommerceCategory c on c.CategoryId=sc.CategoryId where sc.CategoryId='" + @item.CategoryId + "' order by sc.SubCategoryName asc");
+                                        }
+                                        @foreach (ESOL_BO.Ecommerce.EcommerceSubCategoryDomain item1 in subCat)
+                                        {
+                                            <li class="has-child">
+                                                <a href="@Url.Action("products", "shop", new { Area = "", Slug =@item1.Slug, CatId = 2 })">@item1.SubCategoryName</a>
+                                                @{
+                                                    var subSubCat = ESOL_BO.DbAccess.DataAccess.EcommerceSubSubCategory.GetByOrg("select ssc.*,c.CategoryName,sc.SubCategoryName from EcommerceSubSubCategory ssc left join EcommerceCategory c on c.CategoryId=ssc.CategoryId left join EcommerceSubCategory sc on sc.SubCategoryId=ssc.SubCategoryId where ssc.SubCategoryId='" + @item1.SubCategoryId + "' order by ssc.SubSubCategoryName asc");
+                                                }
+                                                @foreach (ESOL_BO.Ecommerce.EcommerceSubSubCategoryDomain item2 in subSubCat)
+                                                {
+                                                    <ul class="sub-menu">
+                                                        <li><a href="@Url.Action("products", "shop", new { Area = "", Slug =@item2.Slug, CatId = 3 })">@item2.SubSubCategoryName</a></li>
+                                                    </ul>
+                                                }
+                                            </li>
+                                          }
+                                    </ul>
+                                </li>
+                               }
+                        </ul>
+                    </aside>
+                    @*<aside class="widget filter-brands">
+                        <h3 class="widget-title">Sort by brands</h3>
+                        <ul>
+                            <li> <a href="#">Bershka Co<span class="count">14</span></a></li>
+                            <li> <a href="#">Nelly.com<span class="count">14</span></a></li>
+                            <li> <a href="#">Zigzag Inc<span class="count">14</span></a></li>
+                            <li> <a href="#">Armani<span class="count">14</span></a></li>
+                        </ul>
+                    </aside>*@
+                </div> <!-- .sidebar-widget-wrapper -->
+            </div> <!-- .sidebar -->
+        </div> <!-- #inner-wrapper -->
+    </div><!-- .container -->
+</div> <!-- #content-->
+<div class="quick-view-content white-popup-block mfp-hide" id="quick-view-content-wrappr">
+    <div class="product-single">
+        <div class="inner-wrapper">
+            <div class="col-grid-6">
+                <div class="single-thumb-detail clear-fix">
+                    <div class="single-main-thumb clear-fix">
+                        <div class="single-thumb"><span class="ribbon-rotated onsale">16% off</span><a href="#"><img alt="product" src="~/web/images/shop/product-1.jpg"></a></div>
+                        <div class="single-thumb"><span class="ribbon-rotated onsale">16% off</span><a href="#"><img alt="product" src="~/web/images/shop/product-2.jpg"></a></div>
+                        <div class="single-thumb"><span class="ribbon-rotated onsale">16% off</span><a href="#"><img alt="product" src="~/web/images/shop/product-3.jpg"></a></div>
+                        <div class="single-thumb"><span class="ribbon-rotated onsale">16% off</span><a href="#"><img alt="product" src="~/web/images/shop/product-4.jpg"></a></div>
+                    </div>
+                    <div class="pager-thumbnail  section-carousel-enabled">
+                        <div class="pager-thumb active"><img alt="product" src="~/web/images/shop/product-1.jpg"></div>
+                        <div class="pager-thumb"><img alt="product" src="~/web/images/shop/product-2.jpg"></div>
+                        <div class="pager-thumb"><img alt="product" src="~/web/images/shop/product-3.jpg"></div>
+                        <div class="pager-thumb"><img alt="product" src="~/web/images/shop/product-4.jpg"></div>
+                    </div><!-- .pager-thumbnail -->
+                </div><!-- .single-thumb-detail -->
+            </div><!-- col-grid-6 -->
+            <div class="col-grid-6">
+                <div class="summary entry-summary">
+                    <div class="product-item-details">
+                        <h2 class="product-title"><a href="#" title="title">Asymmetric Ruffle Skirt</a></h2>
+                        <div class="rating-wrapper clear-fix">
+                            <div class="product-ratings">
+                                <span class="star active"></span>
+                                <span class="star active"></span>
+                                <span class="star active"></span>
+                                <span class="star"></span>
+                                <span class="star"></span>
+                            </div>
+                            <ul class="info-links">
+                                <li><a href="#">(3.5) 54 Ratings </a> </li>
+                                <li><a href="#">  4 Reviews  </a></li>
+                            </ul>
+                        </div><!-- .rating-wrapper -->
+                        <div class="product-price-container">
+                            <del class="dis-price">৳65.99</del>
+                            <span class="fix-price">৳45.99</span>
+                        </div><!-- .product-price-container -->
+                    </div><!-- .product-item-details -->
+                    <div class="item-content">
+                        <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus.</p>
+                    </div><!-- .item-content -->
+                    <div class="availability">
+                        <i class="fas fa-check-circle"></i>
+                        <span>200 in stock</span>
+                    </div><!-- .availability -->
+                    @*<div class="quick-filter filter-by-color">
+                        <div class="filter-color-container">
+                            <a href="#" class="filter-color-box color-1 active"></a>
+                            <a href="#" class="filter-color-box color-2"></a>
+                            <a href="#" class="filter-color-box color-3"></a>
+                            <a href="#" class="filter-color-box color-4"></a>
+                            <a href="#" class="filter-color-box color-5"></a>
+                            <a href="#" class="filter-color-box color-6"></a>
+                        </div>
+                    </div>*@
+                    @*<div class="quick-filter filter-by-size">
+                        <div class="filter-size-container">
+                            <a href="#" class="filter-size-box active">xs</a>
+                            <a href="#" class="filter-size-box">s</a>
+                            <a href="#" class="filter-size-box">m</a>
+                            <a href="#" class="filter-size-box">l</a>
+                            <a href="#" class="filter-size-box">xl</a>
+                        </div>
+                        
+                    </div>*@
+                    <form class="single-cart" method="post">
+                        <input type="number" class="input-text" step="1" min="1" value="1">
+                        <button type="submit" name="add-ro-cart" class="custom-button button-small"> Add To Cart </button>
+                        <button type="submit" name="add-ro-cart" class="custom-button custom-secondary-button button-small"> Wishlist </button>
+                    </form><!-- .single-cart -->
+                    @*<div class="entry-meta product-meta">
+                        <h4>CATEGORY :</h4>
+                        <span class="cat-links">
+                            <a href="#" rel="tag">Clothes,</a>
+                            <a href="#" rel="tag">Winter</a>
+                        </span>
+                    </div>*@<!-- .entry-meta -->
+                    @*<div class="share-on">
+                        <h4>SHARE US:</h4>
+                        <div class="social-links text-alignleft">
+                            <ul>
+                                <li><a target="_blank" href="http://facebook.com/">Facebook</a></li>
+                                <li><a target="_blank" href="http://twitter.com/">Twitter</a></li>
+                                <li><a target="_blank" href="http://linkedin.com/">Linkedln</a></li>
+                                <li><a target="_blank" href="http://youtube.com/">Linkedln</a></li>
+                            </ul>
+                        </div>
+                    </div>*@
+                </div>
+            </div><!-- .col-grid-6 -->
+        </div><!-- .inner-wrapper -->
+    </div> <!-- .product-single -->
+</div><!-- #quick-view-content-wrappr -->

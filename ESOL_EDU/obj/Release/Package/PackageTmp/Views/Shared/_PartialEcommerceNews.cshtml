@@ -1,0 +1,9 @@
+﻿@model IEnumerable<ESOL_BO.Ecommerce.EcommerceNoticeDomain>
+@{
+    foreach (ESOL_BO.Ecommerce.EcommerceNoticeDomain item in Model)
+    {
+        <span>Notice:</span><a href="javascript:void(0)"><i class="fa fa-gift"></i> @item.Description</a>
+    }
+}
+
+

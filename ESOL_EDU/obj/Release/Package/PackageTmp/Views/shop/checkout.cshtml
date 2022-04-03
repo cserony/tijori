@@ -1,0 +1,176 @@
+﻿@using ESOL_BO.Ecommerce;
+@model ESOL_BO.Ecommerce.EcommerceOrderDomain
+@using ESOL_EDU.Helper
+@{
+    ViewBag.Title = "checkout";
+    Layout = "~/Views/Shared/_LayoutEcommerce.cshtml";
+}
+
+<div id="custom-header">
+    <div class="custom-header-content">
+        <div class="container">
+            <h1 class="page-title">Checkout</h1>
+            <div id="breadcrumb">
+                <div aria-label="Breadcrumbs" class="breadcrumbs breadcrumb-trail">
+                    <ul class="trail-items">
+                        <li class="trail-item trail-begin"><a href="@Url.Action("Index", "Web", new { Area = "" })" rel="home"><span>Home</span></a></li>
+                        <li class="trail-item trail-end"><span>Checkout</span></li>
+                    </ul>
+                </div> <!-- .breadcrumbs -->
+            </div> <!-- #breadcrumb -->
+        </div> <!-- .container -->
+    </div>  <!-- .custom-header-content -->
+</div> <!-- .custom-header -->
+<div id="content" class="site-content default-full-width">
+    <div class="container">
+        <div class="inner-wrapper">
+            <div id="primary" class="content-area">
+                <main id="main" class="site-main">
+                    @using (Html.BeginForm("placeOrder", "shop", FormMethod.Post))
+                    {
+                        <div class="section-checkout">
+                            <div class="col2-set" id="customer_details">
+                                <div class="col-1">
+                                    <div class="product-billing-fields">
+                                        <!-- Billing Details -->
+                                        <div class="panel panel-default aa-checkout-billaddress">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    Billing Details / Shippping Address
+                                                </h4>
+                                            </div>
+                                            <div id="collapseThree" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="aa-checkout-single-bill">
+                                                                <input type="hidden" name="CustomerId" value="@(Session["CustomerPortal"] != null ? Convert.ToString(@CustomerHelper.CustomerId) : "")">
+                                                                <input name="Name" type="text" required placeholder="Name*" value="@(Session["CustomerPortal"] != null ? @CustomerHelper.CustomerName : "")">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="aa-checkout-single-bill">
+                                                                <input name="Email" type="email" required placeholder="Email Address*" value="@(Session["CustomerPortal"] != null ? @CustomerHelper.Email : "")">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="aa-checkout-single-bill">
+                                                                <input name="Mobile" type="tel" required placeholder="Mobile*" value="@(Session["CustomerPortal"] != null ? @CustomerHelper.MobileNo : "")">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="aa-checkout-single-bill">
+                                                                <input name="Address" type="tel" required placeholder="Address*" value="@(Session["CustomerPortal"] != null ? @CustomerHelper.DeliveryAddress : "")">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="aa-checkout-single-bill">
+                                                                <input name="City" type="text" placeholder="City / Town">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="aa-checkout-single-bill">
+                                                                <input name="PostCode" type="text" placeholder="Postcode / ZIP">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <h3 id="order-review-heading">Your order</h3>
+                                    @if (Session["OrderDetails"] != null)
+                                    {
+                                        <table class="shop-table product-checkout-review-order-table">
+                                            <thead>
+                                                <tr>
+                                                    <th class="product-name">Product Details</th>
+                                                    <th class="product-total">Price</th>
+                                                    <th class="product-total">Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (EcommerceOrderDetailsDomain item in (List<EcommerceOrderDetailsDomain>)Session["OrderDetails"])
+                                                {
+                                                    <tr class="cart-item">
+                                                        <td class="product-name" data-title="Product">
+                                                            @item.ProductName
+                                                            <span class="product-quantity">x @item.Quantity</span>
+                                                        </td>
+                                                        <td class="product-total" data-title="Total">
+                                                            ৳@item.ItemPrice
+                                                        </td>
+                                                        <td class="product-total" data-title="Total">                                                            
+                                                            ৳@item.TotalPrice
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                            <tfoot>
+                                                @{
+                                                    List<EcommerceOrderDetailsDomain> cart = (List<EcommerceOrderDetailsDomain>)Session["OrderDetails"];
+                                                    var total = cart.Sum(item => item.ItemPrice * item.Quantity);
+                                                }
+                                                <tr class="cart-subtotal">
+                                                    <td></td>
+                                                    <td>Sub-total</td>
+                                                    <td>৳@total</td>
+                                                </tr>
+                                                <tr class="order-total">
+                                                    <td><input type="hidden" name="TotalAmount" value="@total"></td>
+                                                    <th>Order Total</th>
+                                                    <th>৳@total</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p>
+                                                            No products in the cart
+                                                        </p>
+                                                    }
+
+
+                                    <div id="payment" class="product-checkout-payment">
+                                        <h3>Payments Methods</h3>
+                                        <ul class="wc-payment-methods payment-methods methods">
+                                            <li class="wc-payment-method payment-method-cod">
+                                                <input type="radio" name="PaymentId" value="1">
+                                                <label>
+                                                    Cash on Delivery
+                                                </label>
+                                            </li>
+                                            <li class="wc-payment-method payment-method-bacs">
+                                                <input type="radio" name="PaymentId" value="2">
+                                                <label>Online Payment</label>
+                                            </li>
+                                        </ul>                                        
+                                        <div class="form-row place-order">
+                                            @if (Session["CustomerPortal"] != null)
+                                            {
+                                                <input type="submit" class="button alt" name="product-checkout-place-order" id="place_order" value="Place order" data-value="Place order">
+                                            }
+                                            else
+                                            {
+                                                <h3>Please login to place order</h3>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       }
+                </main>
+            </div>
+        </div>
+    </div>
+</div>

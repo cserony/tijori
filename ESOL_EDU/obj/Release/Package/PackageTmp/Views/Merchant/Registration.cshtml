@@ -1,0 +1,265 @@
+﻿@{
+    ViewBag.Title = "Log in";
+    Layout = null;
+}
+@{
+    Func<string, MvcHtmlString> function = (c) => Model != null && Model.Gender == c ? MvcHtmlString.Create("selected='selected'") : MvcHtmlString.Empty;
+}
+@model ESOL_BO.Merchant.MerchantUserDomain
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Registration</title>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="~/web/images/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- LIBRARY FONT-->
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,400italic,700,900,300">
+    <link type="text/css" rel="stylesheet" href="~/assets/libs/bootstrap-3.3.5/css/bootstrap.css">
+    <link type="text/css" rel="stylesheet" href="#" id="color-skins">
+    <script src="~/assets/libs/jquery/jquery-2.1.4.min.js"></script>
+    <link href="~/assets/css/color-1.css" rel="stylesheet" />
+</head>
+<body style="background: #E7E7E7;">
+    <header></header>
+    <div id="wrapper-content">
+        <div id="page-wrapper">
+            <div class="main-content">
+                <div class="content">
+                    <div class="page-login">
+                        <div class="container">
+                            <div class="login-wrapper rlp-wrapper">
+                                <div class="login-table rlp-table">
+                                    <img src="~/images/Registration.jpg" alt="" class="login" />
+                                    <div id="dvmessage" style="margin-left: 20px;">
+                                        @if (@ViewBag.Message != null)
+                                        {
+                                            <p style="color: green">@ViewBag.Message </p>
+                                        }
+                                        @if (@ViewBag.Error != null)
+                                        {
+                                            <p style="color: red">@ViewBag.Error </p>
+                                        }
+                                    </div>
+                                    @using (Html.BeginForm("Registration", "Merchant", FormMethod.Post, new { ReturnUrl = ViewBag.ReturnUrl, @id = "login_validator", @style= "padding: 5px;", enctype = "multipart/form-data" }))
+                                    {
+                                        <div class="login-form bg-w-form rlp-form">
+                                            <div class="row">
+                                                <div class="col-md-4">                                                    
+                                                    <div class="form-group">
+                                                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control input-sm", @placeholder = "Enter your name *", @required = "required" })
+                                                    </div>
+                                                    <div class="form-group">
+                                                        @Html.TextBoxFor(model => model.Mobile, new { @class = "form-control input-sm", @placeholder = "Enter your mobile no. *", @required = "required" })
+                                                    </div>
+                                                    <div class="form-group">
+                                                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control input-sm", @placeholder = "Enter your email *", @required = "required" })
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <select class="form-control input-sm" id="Gender" name="Gender">
+                                                            <option value="">Select your gender</option>
+                                                            <option @function("M") value="M">Male</option>
+                                                            <option @function("F") value="F">Female</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        @Html.TextAreaFor(model => model.Address, new { @class = "form-control", @style = "height: 30px;", @placeholder = "Enter your address *", @required = "required" })
+                                                    </div>                                                    
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        @Html.TextBoxFor(model => model.RelativesName, new { @class = "form-control input-sm", @placeholder = "Enter your relatives name" })
+                                                    </div>
+                                                    <div class="form-group">
+                                                        @Html.TextBoxFor(model => model.RelativesMobileNo, new { @class = "form-control input-sm", @placeholder = "Enter your relatives mobile no" })
+                                                    </div>
+                                                    <div class="form-group">
+                                                        @Html.TextBoxFor(model => model.EducationalQualification, new { @class = "form-control input-sm", @placeholder = "Enter your designing educational qualification" })
+                                                    </div>
+                                                    <div class="form-group">
+                                                        @Html.TextBoxFor(model => model.PassingYear, new { @class = "form-control input-sm", @placeholder = "Enter your passing year" })
+                                                    </div>
+                                                    <div class="form-group">
+                                                        @Html.TextBoxFor(model => model.InstitutionName, new { @class = "form-control input-sm", @placeholder = "Enter your institution name" })
+                                                    </div>                                                    
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <div id="dvPreview">
+                                                            <img style="width: 120px; height: 150px; border: black" src="~/Images/photo.jpg" id="photoPreview" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Photo Upload</label>
+                                                        <div id="ctrlUp">
+                                                            @Html.TextBoxFor(model => model.Photo, new { @class = "", type = "file", onchange = "fileSelect(this);" })
+                                                        </div>
+                                                    </div>                                                    
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12" style="margin-top: 0px;">
+                                                    <div role="alert" class="alert alert-success">If You Have Any Fashion Brand</div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        @Html.TextBoxFor(model => model.BrandName, new { @class = "form-control input-sm", @placeholder = "Enter your brand name"})
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        @Html.TextBoxFor(model => model.BrandAddress, new { @class = "form-control input-sm", @placeholder = "Enter your brand address" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12" style="margin-top: 0px;">
+                                                    <div role="alert" class="alert alert-success">Select Your Product Category</div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        @Html.CheckBoxFor(model => model.Men) Men @Html.CheckBoxFor(model => model.Women) Women
+                                                        @Html.CheckBoxFor(model => model.Childern) Childern @Html.CheckBoxFor(model => model.Unisex) Unisex
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12" style="margin-top: 0px;">
+                                                    <div role="alert" class="alert alert-success">Bank Accouns Details</div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        @Html.TextBoxFor(model => model.AccountName, new { @class = "form-control input-sm", @placeholder = "Enter your account name" })
+                                                    </div>
+                                                    <div class="form-group">
+                                                        @Html.TextBoxFor(model => model.AccountNumber, new { @class = "form-control input-sm", @placeholder = "Enter your account number" })
+                                                    </div>
+                                                    <div class="form-group">
+                                                        @Html.TextBoxFor(model => model.BankName, new { @class = "form-control input-sm", @placeholder = "Enter your bank name" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        @Html.TextBoxFor(model => model.BankBranch, new { @class = "form-control input-sm", @placeholder = "Enter your bank branch" })
+                                                    </div>
+                                                    <div class="form-group">
+                                                        @Html.TextBoxFor(model => model.RoutingNumber, new { @class = "form-control input-sm", @placeholder = "Enter your routing number" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12" style="margin-top: 0px;">
+                                                    <div role="alert" class="alert alert-success">Write a Short BIO about yourself</div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        @Html.TextAreaFor(model => model.YourSelf, new { @class = "form-control", @style = "height: 75px;", @placeholder = "Enter your self" })
+                                                    </div> 
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>I agree to Tijori <a href="#" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false">Terms of Use and Privacy Policy</a></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="login-submit">
+                                            <button type="submit" class="btn btn-login btn-green"><span>Submit</span></button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">ডিজাইনারদের সাথে চুক্তিনামা</h4>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        <li>১.	প্রত্যেক ডিজাইনারকে তিজোরি’র নিয়ম মোতাবেক ফরম পূরণ করে সদস্য হতে হবে।</li>
+                        <li>২.	প্রত্যেক ডিজাইনারের জন্য একটি আলাদা আইডি নম্বরের মাধ্যমে কর্মকান্ড পরিচালনা করতে হবে।</li>
+                        <li>৩.	প্রত্যেক ডিজাইনারকে নিয়মিত অনলাইনে তার পোর্টল ভিজিট করতে হবে। যাতে নিয়মিত ক্রেতাকে ফিডব্যক প্রদান করা যায়। </li>
+                        <li>৪.	ডিজাইনারকে নিজস্ব ডিজাইন করা পোশাক তৈরী করতে হবে। কোন ভাবেই কোন কোম্পানী হতে ক্রয়কৃত পোশাক নিজের নামে দেখানো যাবে না। </li>
+                        <li>৫.	তিজোরির মাধ্যমে প্রদর্শনকৃত কোন পোশাক অন্যকোন প্লাটফর্মে প্রদর্শন করা যাবে না, কিন্তু নিজের নামের  প্লাটফর্মে একই দামে উপস্থাপন করতে পারবে।</li>
+                        <li>৬.	প্রত্যেক ডিজাইনারকে দুই ধরনের পোশাক তৈরীর প্রস্তুতি নিতে হবে। যার একটি হবে ঊীপষঁংরাব (সিংগেল পিস ড্রেস) আর অন্যটি এবহবৎধষ (মাল্টি পিস ড্রেস)। ক্রেতার সন্তুষ্টির জন্য এবং তিজোরির নিয়মানুসারে ঊীপষঁংরাব এর আর কোন কপি তৈরী করা যাবে না। </li>
+                        <li>৭.	প্রত্যেকটি পোশাকের জন্য আলাদা একটি কোড নম্বর ব্যবহার করতে হবে।</li>
+                        <li>
+                            ৮.	যেই পোশাকের ফটোশুট করা হবে বা প্রদর্শন করা হবে- ক্রেতা কর্তৃক অর্ডার আসলে অবশ্যই হুবুহু পোশাক সরবরাহ করতে হবে। এক্ষেত্রে কোন প্রকারের ব্যতয় ঘটলে পোশাকটি বাজেয়াপ্ত করা হবে এবং তিজোরির নিয়মানুযায়ী ব্যবস্থা গ্রহণ করা হবে।
+                        </li>
+                        <li>৯.	প্রত্যেকটি পোশাক কাষ্টমারের চাহিদা মোতাবেক সাইজ, ডিজাইন পরিবর্তন বা সংযোজন করার সুবিধা রাখতে হবে। </li>
+                        <li>১০.	পোশাকের মূল্য ডিজাইনার নির্ধারণ করবে তবে তিজোরি কর্তৃপক্ষের অনুমতি নিতে হবে। মূল্য নির্ধারণের ক্ষেত্রে চলমান বাজার পরিস্থিতির উপর ভিত্তি করে তিজোরি কর্তৃপক্ষ মতামত প্রদান করতে পারবে।</li>
+                        <li>১১.	ওয়েব সাইডে পোশাক প্রদর্শনের ক্ষেত্রে ক্রমানুসার- ক্রেতা ও ভিজিটরের ভিজিট এবং তিজোরির উপর নির্ভর করবে।</li>
+                        <li>১২.	প্রত্যেক পোশাকের নির্ধারিত মূল্য ওয়েব সাইডে পোশাকের ছবির সাথে উল্লেখ করা থাকবে।</li>
+                        <li>১৩.	উল্ল্যেখিত মূল্যের উপর ১৫% হারে তিজোরি কর্তপক্ষ চার্জ হিসেবে প্রাপ্য হবেন। বাকী অর্থ ডিজাইনার তার আইডি নম্বরের ভিত্তিতে প্রাপ্য হবেন। </li>
+                        <li>১৪.	তিজোরি বিভিন্ন সময় বিভিন্ন উপলক্ষ্যে অথবা ক্রেতার অর্জিত পয়েন্টের উপর ভিত্তি করে বিভিন্ন ক্যম্পেন পরিচালনা করার অধিকার সংরক্ষণ করে। সেক্ষেত্রে ডিজাইনারকে উক্ত ক্যম্পেনে অংশগ্রহণ করতে পোশাকের মূল্যে উপর কর্তৃপক্ষের সিদ্ধান্ত অনুযায়ী অতিরিক্ত অর্থ ছাড় প্রদান করতে হবে, যা আলোচনা সাপেক্ষে সিদ্ধান্ত গ্রহণ করা হবে। </li>
+                        <li>১৫.	তিজোরি কর্তৃক অনুমোদিত পোশাকের ফটোশুট করা বাধ্যতা মূলক। এ ক্ষেত্রে কর্তপক্ষ কর্তৃক নির্ধারিত নিয়মে ফটোশুট করতে হবে।</li>
+                        <li>১৬.	ক্রেতা কর্তৃক কোন পোশাকের অর্ডার ফাইনাল হলে ১২ ঘন্টার মধ্যে তা তিজোরি কর্তৃক নিযুক্ত ডিস্ট্রিবিউশন কোম্পানির কাছে নির্ধারিত নিয়মে হস্তান্তর করতে হবে। বিলম্ব কোন ভাবে গ্রহণযোগ্য নয়। এতে প্রতিষ্ঠানের ভাবমূতি নষ্ট হবে। </li>
+                        <li>১৭.	অনিচ্ছাকৃত কোন প্রকারের বিলম্বিত হলে এবং তার জন্য অর্ডার বাতিল হলে কর্তপক্ষ দায়ী থাকবে না। </li>
+                        <li>১৮.	কোন পোশাক ক্রেতা কর্তৃক গ্রহনের ৭দিন পর পর্যন্ত ফেরত প্রদান নিয়ম থাকবে, সেক্ষেত্রে ডিজাইনারকে তা মেনে চলতে হবে। </li>
+                        <li>১৯.	বিক্রয় হওয়া কোন পোশাকের মূল্য ক্রেতা কর্তৃক গ্রহনের ৭ থেকে ১০ দিনের মধ্যে ডিজাইনারকে ব্যাংকের মাধ্যমে পরিশোধ করা হবে, তবে কোন পন্য পরিবর্তনের ব্যপার থাকলে সে ক্ষেত্রে সময়ের তারতম্য হতে পারে।</li>
+                        <li>২০.	ডিজাইনার দেশের প্রচলিত সাইজ অনুসারে পোশাক তৈরী করবে। তবে ফ্রি সাইজের ক্ষেত্রে ক্রেতার চাহিদা থাকলে তার মেজারমেন্ট অনুসারে সেলায়ের ব্যবস্থা করতে হবে। </li>
+                        <li>২১.	কোন পোশাক ডিসপ্লে করা আছে, কিন্তু ক্রেতা অর্ডার করে পোশাক পেল না- শেষ হয়ে গেছে বা নাই, এমন হলে কর্তপক্ষ ডিজাইনারের বিরুদ্ধে পোশাকের মূল্যের সম পরিমান ক্ষতিপূরণ দাবি করতে পারে বা তার নিবন্ধন বাতিল করতে পারবে। </li>
+                        <li>২২.	প্রদর্শিত একটি পোশাক কতদিন ডিসপ্লে থাকবে তা তিজোরি কর্তপক্ষের উপর নির্ভর করবে। বিশেষ করে কোন পোশাকের ব্যপারে ক্রেতার আদোও কোন আগ্রহ না থাকলে সে ক্ষেত্রে তিজোরি কর্তৃপক্ষ বাতিল করতে পারবে অথবা ডিজাইন পরিবর্তনের জন্য ডিজাইনারকে জানাতে পারবে। </li>
+                        <li>২৩.	হ্যান্ড ট্যাগ, প্যাকেট ইত্যাদি এক্সেসরিজ তিজোরি কর্তৃক সরবরাহ করা হবে। এক্ষেত্রে পূর্বানুমোতি ব্যতিত ডিজাইনার কোন প্রকারের লেবেল, ট্যাগ বা অন্যান্য কিছু ব্যবহার করতে পারবে না।</li>
+                        <li>২৪.	বিক্রয়ের উপর ভিত্তি করে বাৎসরিক মূল্যায়নের মাধ্যমে ডিজাইনারবৃন্দ কে বিভিন্নভাবে পুরস্কৃত করা হবে বা তাদের জন্য আলাদা উইনডো করা হবে। </li>
+                        <li>২৫.	ওয়েব সাইড ডিজাইন বা এ্যাড প্রদর্শন ইত্যাদি বিষয়ে তিজোরি কর্তপক্ষের সিদ্ধান্ত চুড়ান্ত। তবে এ বিষয়ে ডিজাইনারবৃন্দ মতামত প্রদান করতে পারবেন।</li>
+                        <li>২৬.	ডিজাইনার প্রদর্শনকৃত যে কোন পোশাক সরিয়ে নিতে চাইলে তা কমপক্ষে ৭ দিন পূর্বে তিজোরি কর্তপক্ষকে জানাতে হবে।</li>
+                        <li>২৭.	কোন ডিজাইনার তিজোরির সাথে চুক্তি বাতিল করতে চাইলে ৩ মাস পূর্বে জানাতে হবে।</li>
+                        <li>২৮.	তিজোরীর নাম, ট্যাগ, প্যাকেট ইত্যাদি অপব্যবহার করা যাবে না। নির্দিষ্ট সংখ্যক সরবরাহ করা হবে, যা ব্যবহার না হলে তিজোরি কর্তৃপক্ষকে পূনরায় ফেরত প্রদান করতে হবে। </li>
+                        <li>২৯.	ডিজাইনারবৃন্দের নিবন্ধন গ্রহণ বা বাতিলের অধিকার তিজোরি কর্তপক্ষ সংরক্ষণ করবে। </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <p style="font-size: 17px;color: green;">
+                        I accept term and condition
+                        <button type="button" class="btn btn-success" onclick="myFunction()">Yes</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </p>                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer></footer>
+    <script src="~/assets/libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/jquery.min.js"></script>
+    <script>
+        $(document).ready(function (e) {
+            $("button[type=submit]").hide();
+            setTimeout(function () {
+                $('#dvmessage').fadeOut('slow');
+            }, 3000);            
+        });
+        function myFunction() {
+            $("button[type=submit]").show();
+        }
+        function fileSelect(e) {
+            $("#dvPreview").show();
+            if (e.files && e.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#photoPreview').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(e.files[0]);
+            }
+        }
+    </script>
+</body>
+</html>

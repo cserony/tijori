@@ -1,0 +1,326 @@
+﻿@using ESOL_BO.Ecommerce;
+@using ESOL_EDU.Helper;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>TIJORI - We believe in quality</title>
+    <meta name="description" content="Multi-Purpose E-commerce Template">
+    <!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="~/web/images/favicon.png" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="~/web/images/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="~/web/images/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="~/web/images/apple-touch-icon-114x114.png" />
+    <link rel="stylesheet" type="text/css" href="~/web/third-party/sidr/css/jquery.sidr.dark.css">
+    <link rel="stylesheet" type="text/css" href="~/web/third-party/slick/css/slick.css">
+    <link rel="stylesheet" type="text/css" href="~/web/third-party/slick/css/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="~/web/third-party/wow/css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="~/web/css/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="~/web/third-party/magnific-popup-master/css/magnific-popup.css">
+    <link rel="stylesheet" type="text/css" href="~/web/third-party/accordionjs/css/accordion.min.css">
+    <link rel="stylesheet" type="text/css" href="~/web/style.css">
+    <link rel="stylesheet" type="text/css" href="~/web/icons/icons.css">
+    <link rel="stylesheet" type="text/css" href="~/web/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="~/web/css/responsive.css">
+    <link rel="stylesheet" id="color" href="~/web/css/default.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries Rony Bhowmick-->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="home header-v5">
+    <div id="page" class="site">
+        <!-- Mobile main menu -->
+        <a href="#" id="mobile-trigger"><i class="fa fa-list" aria-hidden="true"></i></a>
+        <div id="mob-menu">
+            <ul>
+                <li class="current-menu-item menu-item-has-children">
+                    <a href="#">Home</a>
+                </li>
+                <li class="menu-item-has-children">
+                    <a href="#">Categorys</a>
+                    <ul class="sub-menu">
+                        <li class="current-menu-item menu-item-has-children">
+                            <a href="#">Dresses</a>
+                            <ul class="sub-menu">
+                                <li class=""> <a href="#">Casual dresses</a> </li>
+                                <li> <a href="#">Evening</a> </li>
+                                <li> <a href="#">Party</a> </li>
+                                <li> <a href="#">Printed</a> </li>
+                                <li> <a href="#">Winter </a> </li>
+                            </ul>
+                        </li>
+                        <li class="current-menu-item menu-item-has-children">
+                            <a href="#">Tops category</a>
+                            <ul class="sub-menu">
+                                <li class=""> <a href="#">Blouses</a> </li>
+                                <li> <a href="#">Evening tops</a> </li>
+                                <li> <a href="#">Work</a> </li>
+                                <li> <a href="#">Winter</a> </li>
+                                <li> <a href="#">Summer</a> </li>
+                            </ul>
+                        </li>
+                        <li class="current-menu-item menu-item-has-children">
+                            <a href="#">Lingerie</a>
+                            <ul class="sub-menu">
+                                <li> <a href="#">Bras</a> </li>
+                                <li> <a href="#">Knickers</a> </li>
+                                <li> <a href="#">Nightwear</a> </li>
+                                <li> <a href="#">Summerwear</a> </li>
+                                <li> <a href="#">Men Fashion </a> </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div> <!-- #mob-menu -->
+        <div id="tophead">
+            <div class="container">
+                <div class="notice-bar pull-left">
+                    @{
+                        Html.RenderAction("LoadNews", "Web", new { Area = "" });
+                    }                    
+                </div>
+                <div class="top-head-right pull-right">
+                    <a href="javascript:;" class="header-link"><i class="fas fa-phone"></i><span class="header-text">+8801921668999</span></a>
+                    <a href="@Url.Action("products", "shop" , new { Area="" , Slug="All" , CatId=0 })" class="header-link"><i class="fa fa-shopping-bag"></i><span class="header-text">Shop</span></a>
+                    <a href="@Url.Action("Registration", "Merchant" , new { Area="" })" class="header-link" target="_blank"><i class="fa fa-user"></i><span class="header-text">Merchant Registation</span></a>
+                    <a href="@Url.Action("Login", "Account" , new { Area="" })" class="header-link" target="_blank"><i class="fa fa-user"></i><span class="header-text">Software</span></a>
+                    @if (Session["CustomerPortal"] == null)
+                    {
+                        <div class="header-link my-account">
+                            <a href="javascript:;" title="My Account">
+                                <i class="fa fa-user"></i><span class="header-text">Login</span>
+                            </a>
+                            <div class="user-account-popup">
+                                <div class="login-account">
+                                    <div class="user-acc-header">
+                                        <img src="images/blog-single/author1.png" alt="">
+                                        <h3>Login</h3>
+                                    </div>
+                                    <div class="content-body">
+                                        @if (@ViewBag.ErrorMessage != null)
+                                        {
+                                            <p style="color: red">@ViewBag.ErrorMessage</p>
+                                        }
+                                        @using (Html.BeginForm("Login", "customer", FormMethod.Post, new { ReturnUrl = ViewBag.ReturnUrl, @id = "login_validator" }))
+                                        {
+                                            <input type="text" placeholder="Mobile No." required name="UserName">
+                                            <input type="password" placeholder="Password" required name="Password">
+                                            <input type="submit" class="custom-button button-small" value="Login">
+                                        }
+                                    </div>
+                                    <div class="user-acc-footer">
+                                        <p>New user? <a id="register-account-link" href="@Url.Action("Registation", "customer", new { Area = "" })">Register</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Index", "customer", new { Area = "" })" class="header-link"><i class="fa fa-user"></i><span class="header-text">My Account</span></a>
+                        <a href="@Url.Action("LogOff", "customer", new { Area = "" })" class="header-link"><i class="fa fa-sign-out"></i><span class="header-text">Logout</span></a>
+                    }
+                </div>
+            </div>
+        </div>
+        <header id="masthead" class="site-header sticky-enabled">
+            <div class="container">
+                <div class="site-branding pull-left">
+                    <div id="site-identity">
+                        <h1 class="site-title"><a href="@Url.Action("Index", "Web" , new { Area="" })" rel="home"><img alt="logo" class="site-logo" src="~/web/images/logo.png">TIJORI</a></h1>
+                    </div><!-- #site-identity -->
+                </div><!-- .site-branding -->
+                <div id="header-right" class="pull-right">
+                    <div class="hearder-min-cart pull-right">
+                        <ul>
+                            <li class="cart-button mini-cart-wrap">
+                                <a href="@Url.Action("cart", "shop" , new { Area="" })">
+                                    <i class="icon-basket"></i>
+                                    @if (Session["OrderDetails"] != null)
+                                    {
+
+                                        <span>
+                                            @{
+                                                List<EcommerceOrderDetailsDomain>
+                                                    cart = (List<EcommerceOrderDetailsDomain>
+                                                        )Session["OrderDetails"];
+                                                var totalCount = cart.Count;
+                                            }
+                                            @totalCount
+                                        </span>
+                                                }
+                                                else
+                                                {
+                                                    <span>0</span>
+                                                }
+                                </a>
+                                @if (Session["OrderDetails"] != null)
+                                {
+                                    <ul class="cart-list">
+                                        @foreach (EcommerceOrderDetailsDomain item in (List
+            <EcommerceOrderDetailsDomain>
+                )Session["OrderDetails"])
+                                        {
+                                            <li>
+                                                <div class="cart-img">
+                                                    <a href="@Url.Action("product", "shop" , new { Area="" ,slug=@item.Slug})"><img src="../@item.ImageName" alt="@item.ProductName"></a>
+                                                </div>
+                                                <div class="cart-info">
+                                                    <h4><a href="@Url.Action("product", "shop" , new { Area="" ,slug=@item.Slug})">@item.ProductName</a></h4>
+                                                    <span class="cart-qty">Qty: @item.Quantity * ৳@item.ItemPrice</span>
+                                                </div>
+                                                <div class="del-icon">
+                                                    <a href="@Url.Action("remove", "shop" , new { Area="" ,id=item.ProductId})">
+                                                        <i class="fa fa-times"></i>                                                       
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        }
+                                        <li>
+                                            <div class="mini-cart-button">
+                                                @{
+                                                    List<EcommerceOrderDetailsDomain>
+                                                        cart = (List<EcommerceOrderDetailsDomain>
+                                                            )Session["OrderDetails"];
+                                                    var total = cart.Sum(item => item.ItemPrice * item.Quantity);
+                                                }
+                                                <a class="custom-button button-small pull-left" href="@Url.Action("cart", "shop" , new { Area="" })">View Cart</a>
+                                                <a class="custom-button button-small pull-right" href="@Url.Action("checkout", "shop" , new { Area="" })">Checkout Now(৳@total)</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                                }
+                            </li>
+                            <li class="cart-button">
+                                <a href="@Url.Action("wishlist", "shop" , new { Area="" })" title="wishlist"><i class="icon-heart"></i>
+                                    @if (Session["CustomerPortal"] != null)
+                                    {
+                                        <span> @CommonHelper.Count("WishlistId", "EcommerceWishlist", "where CustomerId='" + CustomerHelper.CustomerId + "'")</span>
+                                    }
+                                    else
+                                    {
+                                        <span>0</span>
+                                    }
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <nav class="main-navigation pull-right">
+                    @{
+                        Html.RenderAction("LoadEcommerceMenu", "Web", new { Area = "" });
+                    }
+                </nav> 
+
+            </div> 
+        </header> 
+        <div class="">
+            @RenderSection("featuredOnline", required: false)
+            @RenderBody()
+        </div>
+        <div class="footer-container">
+            <div id="footer-widgets">
+                <div class="container">
+                    <div class="inner-wrapper">
+                        <aside class="col-grid-3 footer-widget-area">
+                            <h3 class="widget-title">ABOUT US</h3>
+                            <div class="widget-quick-contact">
+                                <p><i class="fas fa-phone" aria-hidden="true"></i> +8801921668999 </p>
+                                <p><i class="fas fa-envelope" aria-hidden="true"></i> sales@tijori.com.bd </p>
+                                <p><i class="far fa-map"></i> House #118, Road 9A(New), Shankar, Dhanmondi, Dhaka-1209 </p>
+                            </div>
+                            <div class="social-links brand-color circle">
+                                <ul>
+                                    <li><a href="https://www.facebook.com/tijoribd" target="_blank"></a></li>
+                                    <li><a href="http://youtube.com/" target="_blank"></a></li>
+                                    <li><a href="http://twitter.com/" target="_blank"></a></li>
+                                    <li><a href="http://linkedin.com/" target="_blank">></a></li>
+                                </ul>
+                            </div> <!-- .social-links -->
+                        </aside> <!-- .footer-widget-area -->
+                        <aside class="col-grid-3 footer-widget-area">
+                            <h3 class="widget-title">MY ACCOUNT</h3>
+                            <ul>
+                                <li><a href="@Url.Action("Login", "customer" , new { Area="" })">Login</a></li>
+                                <li><a href="@Url.Action("Registation", "customer" , new { Area="" })">Registation</a></li>
+                                <li><a href="@Url.Action("cart", "shop" , new { Area="" })">Shopping cart</a></li>
+                                <li><a href="@Url.Action("wishlist", "shop" , new { Area="" })">Wishlist</a></li>
+                                <li><a href="@Url.Action("checkout", "shop" , new { Area="" })">Checkout</a></li>
+                            </ul>
+                        </aside> <!-- .footer-widget-area -->
+                        <aside class="col-grid-3 footer-widget-area">
+                            <h3 class="widget-title">INFORMATION</h3>
+                            <ul>
+                                <li><a href="#">About us</a></li>
+                                <li><a href="#">Order History</a></li>
+                                <li><a href="#">Returns</a></li>
+                                <li><a href="#">Custom Service</a></li>
+                                <li><a href="#">Terms &amp; Condition</a></li>
+                            </ul>
+                        </aside> <!-- .footer-widget-area -->
+                        <aside class="col-grid-3 footer-widget-area">
+                            <h3 class="widget-title">QUICK LINKS</h3>
+                            <ul>
+                                <li><a href="#">About us</a></li>
+                                <li><a href="#">Delivery infomation</a></li>
+                                <li><a href="#">Terms &amp; Conditions</a></li>
+                                <li><a href="#">FAQ'S</a></li>
+                                <li><a href="#">Services</a></li>
+                            </ul>
+                        </aside> <!-- .footer-widget-area -->
+                    </div><!-- .inner-wrapper -->
+                </div>  <!-- .container -->
+            </div> <!-- #footer-widgets -->
+            <footer id="colophon" class="site-footer">
+                <div class="colophon-bottom">
+                    <div class="container">
+                        <div class="inner-wrapper">
+                            <div class="col-grid-4 copyright text-alignleft">
+                                <p> Copyright &copy; 2021 <a href="#">TIJORI </a>. All rights reserved. </p>
+                            </div>
+                            <div class="col-grid-4 copyright">
+                                <p><span>We Accept: </span> <img src="~/web/images/payment-getway.png" alt="payment"> </p>
+                            </div>
+                            <div class="col-grid-4 site-info text-alignright ">
+                                <p>Developed By <a rel="" href="ronycse.com" target="_blank">Rony Bhowmick</a> </p>
+                            </div> <!-- .site-info -->
+                        </div><!-- .inner-wrapper -->
+                    </div> <!-- .container -->
+                </div> <!-- .colophon-bottom -->
+            </footer> <!-- footer ends here -->
+        </div><!-- footer-container -->
+    </div> <!--#page-->
+    <div id="btn-scrollup">
+        <a title="Go Top" class="scrollup button-circle" href="#"><i class="fas fa-angle-up"></i></a>
+    </div><!-- #btn-scrollup -->
+
+    <script src="~/web/third-party/jquery/jquery-3.2.1.min.js"></script>
+    <script src="~/web/third-party/jquery/jquery-migrate-3.0.0.min.js"></script>
+    <!--Include all compiled plugins (below), or include individual files as needed-->
+    <script src="~/web/third-party/sidr/js/jquery.sidr.js"></script>
+    <script src="~/web/third-party/cycle2/jquery.cycle2.js"></script>
+    <script src="~/web/third-party/slick/js/slick.min.js"></script>
+    <script src="~/web/third-party/wow/js/wow.min.js"></script>
+    <script src="~/web/js/jquery-ui.min.js"></script>
+    <script src="~/web/third-party/magnific-popup-master/js/jquery.magnific-popup.js"></script>
+    <script src="~/web/third-party/accordionjs/js/accordion.min.js"></script>
+    <script src="~/web/third-party/easytabs/js/jquery.easytabs.min.js"></script>
+    <script src="~/web/js/contact.js"></script>
+    <script src="~/web/js/tabber.js"></script>
+    <script src="~/web/js/custom.js"></script>
+    <script src="~/web/js/color-switcher.js"></script>
+    <script src="https://kit.fontawesome.com/bdd12d476b.js" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,339 @@
+﻿@using ESOL_EDU.Helper
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_LayoutEcommerce.cshtml";
+}
+<div id="custom-header">
+    <div class="custom-header-content">
+        <div class="container">
+            <h1 class="page-title">My Accounts</h1>
+            <div id="breadcrumb">
+                <div aria-label="Breadcrumbs" class="breadcrumbs breadcrumb-trail">
+                    <ul class="trail-items">
+                        <li class="trail-item trail-begin"><a href="@Url.Action("Index", "Web", new { Area = "" })" rel="home"><span>Home</span></a></li>
+                        <li class="trail-item trail-end"><span>Welcome Account</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="content" class="site-content default-full-width">
+    <div class="container">
+        <div class="inner-wrapper">
+            <div id="primary" class="content-area">
+                <main id="main" class="site-main">
+                    <div class="row">
+                        <div class="col-12">
+                            <div id="tabs" class="product-tabs wc-tabs-wrapper">
+                                <ul class="tabs wc-tabs nav-tabs" role="tablist">
+                                    <li class="nav-item"><a href="#dashboard"><i class="fa fa-tachometer"></i> Dashboard</a></li>
+                                    <li class="nav-item"> <a href="#orders"> <i class="fa fa-cart-arrow-down"></i> Orders </a></li>
+                                    <li class="nav-item"><a href="#address"><i class="fa fa-map-marker"></i> Billing Address</a></li>
+                                    <li class="nav-item"><a href="#accountDetails"><i class="fa fa-user"></i> Account Details</a></li>
+                                    <li class="nav-item"><a href="#passwordChange"><i class="fa fa-key"></i> Password Change</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="dashboard">
+                                        <div class="myaccount-content">
+                                            <h3>Dashboard</h3>
+                                            <div class="welcome mb-20">
+                                                <p>
+                                                    Hello, <strong>@CustomerHelper.CustomerName</strong> (Are you
+                                                    <strong>want !</strong><a href="@Url.Action("LogOff", "customer", new { Area = "" })" class="logout"> Logout</a>)
+                                                </p>
+                                            </div>
+                                            <p class="mb-0">
+                                                From your account dashboard. you can easily check &amp; view
+                                                your recent orders, manage your shipping and billing addresses
+                                                and edit your password and account details.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="orders">
+                                        <div class="myaccount-content">
+                                            <h3>Order Lists</h3>
+                                            <div class="myaccount-table table-responsive text-center">
+                                                <table class="table table-bordered">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            @*<th>SL.</th>*@
+                                                            <th>Order No.</th>
+                                                            <th>Date</th>
+                                                            <th>Total</th>
+                                                            <th>Status</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (ESOL_BO.Ecommerce.EcommerceOrderDomain item in ViewBag.OrderList)
+                                                        {
+                                                            //int i = 1;
+                                                        <tr>
+                                                            @*<td>@i @{ i++; }</td>*@
+                                                            <td>@Html.DisplayFor(modelItem => item.InvoiceNo)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.Date)</td>
+                                                            <td>৳@Html.DisplayFor(modelItem => item.TotalAmount)</td>
+                                                            <td>
+                                                                @if (item.StatusId == 3)
+                                                                {
+                                                                <button type="button" class="custom-button custom-info">@Html.DisplayFor(modelItem => item.Status)</button>
+                                                                }
+                                                                else if (item.StatusId == 1)
+                                                                {
+                                                                <button type="button" class="custom-button button-semi-curved custom-success">@Html.DisplayFor(modelItem => item.Status)</button>
+                                                                }
+                                                                else if (item.StatusId == 5)
+                                                                {
+                                                                <button type="button" class="custom-button button-semi-curved custom-danger">@Html.DisplayFor(modelItem => item.Status)</button>
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                <a href="@Url.Action("View", "customer", new { Area = "",id=@item.OrderId})" class="ht-btn black-btn" target="_blank">View</a>
+                                                            </td>
+                                                        </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="address">
+                                        <div class="myaccount-content">
+                                            <h3>Billing Address</h3>
+                                            <address>
+                                                <p><strong>@CustomerHelper.CustomerName</strong></p>
+                                                <p>
+                                                    @(Session["CustomerPortal"] != null ? @CustomerHelper.DeliveryAddress : "")
+                                                </p>
+                                            </address>
+                                            <a href="#" class="ht-btn black-btn d-inline-block edit-address-btn" id="btn-address"><i class="fa fa-edit"></i>Edit Address</a>
+                                            <div class="form-row form-row-wide" id="divDeliveryAddress">
+                                                <input style="width: 100%;" id="DeliveryAddress" type="text" placeholder="address" value="@(Session["CustomerPortal"] != null ? @CustomerHelper.DeliveryAddress : "")">
+                                                <input style="margin-top: 5px;" type="button" class="button alt" value="Save Changes" onclick="return AddDeliveryAddress();">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="accountDetails">
+                                        <div class="myaccount-content">
+                                            <h3>Account Details</h3>
+                                            <div class="section-checkout">
+                                                <div class="col2-set" id="customer_details">
+                                                    <div class="col-2">
+                                                        <div class="product-billing-fields">
+                                                            <div class="product-billing-fields_field-wrapper">
+                                                                <div class="form-row form-row-first">
+                                                                    <label>Name<abbr class="required">*</abbr></label>
+                                                                    <input id="CustomerName" type="text" required placeholder="Name" value="@(Session["CustomerPortal"] != null ? @CustomerHelper.CustomerName : "")">
+                                                                </div>
+                                                                <div class="form-row form-row-last">
+                                                                    <label>Mobile <abbr class="required">*</abbr></label>
+                                                                    <input id="MobileNo" type="tel" required placeholder="Mobile*" value="@(Session["CustomerPortal"] != null ? @CustomerHelper.MobileNo : "")">
+                                                                </div>
+                                                                <div class="form-row form-row-wide">
+                                                                    <label>Email Address <abbr class="required">*</abbr></label>
+                                                                    <input id="Email" name="Email" type="email" required placeholder="Email Address*" value="@(Session["CustomerPortal"] != null ? @CustomerHelper.Email : "")">
+                                                                </div>
+                                                                <div class="form-row place-order">
+                                                                    <input type="button" class="button alt" value="Save Changes" onclick="return Add();">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <div class="product-billing-fields">
+                                                            <div class="product-additional-fields-field-wrapper">
+                                                                <div class="form-row form-row-wide">
+                                                                    <label>Present Address</label>
+                                                                    <input id="PresentAddress" type="text" placeholder="address" value="@(Session["CustomerPortal"] != null ? @CustomerHelper.PresentAddress : "")">
+                                                                </div>
+                                                                <div class="form-row form-row-wide" style="padding-top: 11px;">
+                                                                    <label>Permanent Address</label>
+                                                                    <input id="PermanentAddress" type="text" placeholder="address" value="@(Session["CustomerPortal"] != null ? @CustomerHelper.PermanentAddress : "")">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="passwordChange">
+                                        <div class="myaccount-content">
+                                            <h3>Password Change</h3>
+                                            <div class="section-checkout">
+                                                <div class="col2-set" id="customer_details">
+                                                    <div class="col-2">
+                                                        <div class="product-billing-fields">
+                                                            <div class="product-billing-fields_field-wrapper">
+                                                                @*<div class="form-row form-row-wide">
+                                                                    <label>Current Password <abbr class="required">*</abbr></label>
+                                                                    <input id="Currentpassword" type="password" required placeholder="Current Password*">
+                                                                </div>*@
+                                                                <div class="form-row form-row-first">
+                                                                    <label>New Password<abbr class="required">*</abbr></label>
+                                                                    <input id="password" type="password" required placeholder="New Password">
+                                                                </div>
+                                                                <div class="form-row form-row-last">
+                                                                    <label>Confirm Password <abbr class="required">*</abbr></label>
+                                                                    <input id="confirmPassword" type="password" required placeholder="Confirm Password*">
+                                                                </div>
+                                                                <div class="form-row place-order">
+                                                                    <input type="button" class="button alt" value="Password Change" onclick="return ChangePassword();">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="~/Scripts/js/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#divDeliveryAddress").hide();
+    });
+    $("#btn-address").click(function () {
+        $("#divDeliveryAddress").toggle();
+    });
+    function validate() {
+        var isValid = true;
+        if ($("#CustomerName").val().trim() == "") {
+            $("#CustomerName").css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $("#CustomerName").css('border-color', 'lightgrey');
+        }
+        if ($("#MobileNo").val().trim() == "") {
+            $("#MobileNo").css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $("#MobileNo").css('border-color', 'lightgrey');
+        }
+        if ($("#Email").val().trim() == "") {
+            $("#Email").css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $("#Email").css('border-color', 'lightgrey');
+        }
+        return isValid;
+    }
+    function Add() {
+        var res = validate();
+        if (res == false) {
+            return false;
+        }
+        var InfoObj = {
+            CustomerName: $('#CustomerName').val(),
+            MobileNo: $('#MobileNo').val(),
+            Email: $('#Email').val(),
+            PresentAddress: $('#PresentAddress').val(),
+            PermanentAddress: $('#PermanentAddress').val(),
+        };
+        $.ajax({
+            url: "/customer/CustomerUpdate",
+            data: JSON.stringify(InfoObj),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result2) {
+                alert("Information update successfully");
+                window.location.reload();
+            },
+            error: function (errormessage) {
+                alert("Operation Fail...");
+            }
+        });
+    }
+    function AddDeliveryAddress() {
+        var InfoObj = {
+            DeliveryAddress: $('#DeliveryAddress').val(),
+        };
+        $.ajax({
+            url: "/customer/DeliveryAddressUpdate",
+            data: JSON.stringify(InfoObj),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result2) {
+                alert("Information update successfully");
+                window.location.reload();
+            },
+            error: function (errormessage) {
+                alert("Operation Fail...");
+            }
+        });
+    }
+    function validatePassword() {
+        var isValid = true;
+        if ($("#password").val().trim() == "") {
+            $("#password").css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $("#password").css('border-color', 'lightgrey');
+        }
+        if ($("#confirmPassword").val().trim() == "") {
+            $("#confirmPassword").css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $("#confirmPassword").css('border-color', 'lightgrey');
+        }
+        return isValid;
+    }
+    $("#confirmPassword").on('change', function () {
+        var pass = $("#password").val();
+        var conpass = $("#confirmPassword").val();
+        if (pass != conpass) {
+            alert("Password Cannot Match");
+            $("#confirmPassword").val("");
+            $("#confirmPassword").focus();
+        }
+    });
+    function ChangePassword() {
+        var res = validatePassword();
+        if (res == false) {
+            return false;
+        }
+        var InfoObj = {
+            password: $('#password').val(),
+        };
+        var pass = $("#password").val();
+        var conpass = $("#confirmPassword").val();
+        if (pass == "") {
+            alert("Password Cannot Blank");
+            return;
+        } else if (conpass == "") {
+            alert("Please Confirm Password");
+            return;
+        } else {
+            $.ajax({
+                url: "/customer/ChangePassword",
+                data: JSON.stringify(InfoObj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result2) {
+                    alert("Password change successfully");
+                    window.location.reload();
+                },
+                error: function (errormessage) {
+                    alert("Operation Fail...");
+                }
+            });
+        }        
+    }
+</script>

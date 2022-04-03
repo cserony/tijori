@@ -1,0 +1,242 @@
+﻿@using ESOL_BO.Ecommerce;
+@{
+    ViewBag.Title = "cart";
+    Layout = "~/Views/Shared/_LayoutEcommerce.cshtml";
+}
+<div id="custom-header">
+    <div class="custom-header-content">
+        <div class="container">
+            <h1 class="page-title">Cart</h1>
+            <div id="breadcrumb">
+                <div aria-label="Breadcrumbs" class="breadcrumbs breadcrumb-trail">
+                    <ul class="trail-items">
+                        <li class="trail-item trail-begin"><a href="@Url.Action("Index", "Web", new { Area = "" })" rel="home"><span>Home</span></a></li>
+                        <li class="trail-item trail-end"><span>Cart</span></li>
+                    </ul>
+                </div> <!-- .breadcrumbs -->
+            </div> <!-- #breadcrumb -->
+        </div> <!-- .container -->
+    </div>  <!-- .custom-header-content -->
+</div> <!-- .custom-header -->
+<div id="content" class="site-content default-full-width">
+    <div class="container">
+        <div class="inner-wrapper">
+            <div id="primary" class="content-area">
+                <div id="snackbar">@ViewBag.Message</div>
+                <main id="main" class="site-main">
+                    @if (Session["OrderDetails"] != null)
+                    {
+                        int i = 0;
+                        using (Html.BeginForm("ProcedToCheckout", "shop", FormMethod.Post))
+                        {
+                            <div class="section-cart">
+                                <div class="row">
+                                    <div class="col-grid-12">
+                                        <table class="cart shop-table shop-table-responsive">
+                                            <thead>
+                                                <tr>
+                                                    <th class="product-name">Product Detail</th>
+                                                    <th class="product-price">Price</th>
+                                                    <th class="product-quantity">Quantity</th>
+                                                    <th class="product-subtotal">Total</th>
+                                                    <th class="product-remove"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                @foreach (EcommerceOrderDetailsDomain item in (List<EcommerceOrderDetailsDomain>)Session["OrderDetails"])
+                                                {
+                                                    <tr class="cart-item">
+                                                        @Html.Hidden("shcartID-" + i + "", item.ProductId)
+                                                        <td class="product-name" data-title="Product">
+                                                            <a href="@Url.Action("product", "shop", new { Area = "",slug=@item.Slug})" class="cart-product-thumb">
+                                                                <img src="../@item.ImageName" alt="@item.ProductName">
+                                                            </a>
+                                                            <div class="product-info">
+                                                                <h3>@item.ProductName</h3>
+                                                                <ul>
+                                                                    <li>SKU: @item.SKU</li>
+                                                                </ul>
+                                                            </div>
+                                                        </td>
+                                                        <td id="itemPrice-@(i)">@item.ItemPrice</td>
+                                                        <td>
+                                                            <input style="width: 70px;" id="itemQty-@(i)" name="Qty-@(i)" class="aa-cart-quantity" type="number" maxlength="2" min="1" max="99" value="@(item.Quantity==0 ? "1": item.Quantity.ToString())" />
+                                                        </td>
+                                                        <td><strong id="itemAmount-@(i)">@item.TotalPrice</strong></td>
+                                                        <td class="product-remove" data-title="Remove">
+                                                            <a href="@Url.Action("remove", "shop", new { Area = "",id=item.ProductId})" class="remove" title="Remove this item">
+                                                                <i class="fa fa-times" aria-hidden="true"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    i++;
+                                                }
+                                                <tr>
+                                                    <td colspan="5" class="actions">
+                                                        <div class="coupon">
+                                                            <label>Coupon:</label>
+                                                            <input type="text" name="coupon-code" placeholder="Coupon code">
+                                                            <input type="submit" class="button" name="apply-coupon" value="Apply coupon">
+                                                        </div>
+                                                        <a style="color:#fff;" href="@Url.Action("products", "shop", new { Area = "", Slug ="All", CatId = 0 })" class="custom button">Continue Shopping</a>
+                                                        <input type="submit" class="custom button" name="update-cart" value="Update Cart">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-grid-8">
+                                        <div class="section-products related-product clear-fix top-space">
+                                            <div class="section-title-wrap text-alignleft">
+                                                <h2 class="section-title">Recent view product</h2>
+                                                <span class="divider"></span>
+                                            </div>
+                                            @if (Session["RecentView"] != null)
+                    {
+                                                <div class="inner-wrapper">
+                                                    <div class="products-inner-wrapper clear-fix section-carousel-enabled byapr-carousel" data-slick="{&quot;slidesToShow&quot;:3,&quot;dots&quot;:false,&quot;prevArrow&quot;:&quot;<span data-role=\&quot;none\&quot; class=\&quot;slick-prev\&quot; tabindex=\&quot;0\&quot;><i class=\&quot;fa fa-angle-left\&quot; aria-hidden=\&quot;true\&quot;><\/i><\/span>&quot;,&quot;nextArrow&quot;:&quot;<span data-role=\&quot;none\&quot; class=\&quot;slick-next\&quot; tabindex=\&quot;0\&quot;><i class=\&quot;fa fa-angle-right\&quot; aria-hidden=\&quot;true\&quot;><\/i><\/span>&quot;,&quot;responsive&quot;:[{&quot;breakpoint&quot;:1024,&quot;settings&quot;:{&quot;slidesToShow&quot;:3}},{&quot;breakpoint&quot;:800,&quot;settings&quot;:{&quot;slidesToShow&quot;:3}},{&quot;breakpoint&quot;:659,&quot;settings&quot;:{&quot;slidesToShow&quot;:2}},{&quot;breakpoint&quot;:479,&quot;settings&quot;:{&quot;slidesToShow&quot;:1}}]}">
+                                                        @foreach (ESOL_BO.Ecommerce.EcommerceProductDomain item in (List<EcommerceProductDomain>)Session["RecentView"])
+                                                        {
+                                                            <div class="product-item col-grid-4">
+                                                                <div class="product-item-wrapper zoom-effect-hover-container box-shadow-block">
+                                                                    <div class="product-thumb zoom-effect">
+                                                                        <a class="thumbnail" href="@Url.Action("product", "shop", new { Area = "",slug=@item.Slug})"><img alt="@Html.DisplayFor(modelItem => item.ProductName)" src="../@Html.DisplayFor(modelItem => item.ImagePath)"></a>
+                                                                        <div class="pruduct-buttons">
+                                                                            <a href="@Url.Action("addToCart", "shop", new { Area = "",id=@item.ProductId})" class="product-button tooltip">
+                                                                                <i class="fas fa-cart-plus"></i>
+                                                                                <span class="tooltiptext tooltip-right">Add To Cart</span>
+                                                                            </a>
+                                                                            <a href="@(Session["CustomerPortal"]!=null ? Url.Action("wishlistAdd", "shop", new { Area = "",id=@item.ProductId}) :Url.Action("Login","customer"))" class="product-button tooltip"><i class="far fa-heart"></i><span class="tooltiptext tooltip-right">Wishlist</span></a>
+                                                                        </div>
+                                                                        <div class="quick-view">
+                                                                            <a href="#quick-view-content-wrappr" class="custom-button button-small quick-view-link"><i class="far fa-eye"></i>Quick View</a>
+                                                                        </div>
+                                                                        <span class="ribbon-rotated hot-item">@Html.DisplayFor(modelItem => item.BadgeName)</span>
+                                                                        <span class="ribbon-rotated onsale" style="margin-top: 25px;">-@Html.DisplayFor(modelItem => item.Discount)%</span>
+                                                                    </div>
+                                                                    <div class="product-item-details">
+                                                                        <h3 class="product-title"><a href="@Url.Action("product", "shop", new { Area = "",slug=@item.Slug})" title="@Html.DisplayFor(modelItem => item.ProductName)">@Html.DisplayFor(modelItem => item.ProductName)</a></h3>
+                                                                        <div class="product-price-container">
+                                                                            <del class="dis-price">৳@Html.DisplayFor(modelItem => item.RegularPrice)</del>
+                                                                            <span class="fix-price">৳@Html.DisplayFor(modelItem => item.SalePrice)</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        }
+
+                                                    </div><!-- .products-inner-wrapper -->
+                                                </div><!-- .inner-wrapper -->
+                                            }
+                                        </div><!-- .section-products -->
+                                    </div>
+                                    <div class="col-grid-4">
+                                        <div class="cart-collaterals">
+                                            <div class="cart-totals calculated-shipping">
+                                                <h2>Cart Totals</h2>
+                                                <table class="shop-table shop-table-responsive">
+                                                    <tbody>
+                                                        <tr class="cart-subtotal">
+                                                            <th>Subtotal</th>
+                                                            @{
+                                                                List<EcommerceOrderDetailsDomain> cart = (List<EcommerceOrderDetailsDomain>)Session["OrderDetails"];
+                                                                var total = cart.Sum(item => item.ItemPrice * item.Quantity);
+                                                            }
+                                                            <td id="subTotal">৳@total</td>
+                                                        </tr>
+                                                        <tr class="order-total" id="discount">
+                                                            <th>Discount</th>
+                                                            <td id="discount">0</td>
+                                                        </tr>
+                                                        <tr class="order-total">
+                                                            <th>Total</th>
+                                                            <td id="totalAmount">@total</td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <td colspan="2"><input type="submit" class="checkout-button custom-button" name="apply-coupon" value="Proceed to checkout"></td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    <p style="text-align:center;">
+                                                                        Your shopping bag is empty.<br />Start shopping
+                                                                    </p>
+                                                                }
+                </main>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="~/Scripts/js/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var x = document.getElementById("snackbar");
+        x.className = "show";
+        setTimeout(function () {
+            x.className = x.className.replace("show", "");
+        }, 3000);
+    });
+    $(function () {
+        $(':input[type="number"]').change(function () {
+
+            var index = $(this).attr('id').split("-")[1];
+
+            var itemPriceEle = document.getElementById('itemPrice-' + index + '');
+            var itemQty = $('#itemQty-' + index + '').val();
+            var amountEle = document.getElementById('itemAmount-' + index + '');
+
+            var amount = itemQty * parseInt(itemPriceEle.innerText);
+
+            amountEle.innerText = amount;
+
+            CartsTotal();
+
+
+
+        });
+        CartsTotal();
+    });
+    function CartsTotal() {
+        var subAmount = 0;
+        var i = 0;
+        for (var i = 0; i < 5;) {
+            if (parseInt($('#itemAmount-' + i + '').text()) > 0) {
+                subAmount = subAmount + parseInt($('#itemAmount-' + i + '').text());
+                i++;
+            }
+            else {
+                break;
+            }
+        }
+        var subTotalEle = document.getElementById('subTotal');
+        subTotalEle.innerText = subAmount;
+
+        var TotalAmountEle = document.getElementById('totalAmount');
+        TotalAmountEle.innerText = subAmount;
+    }
+    function TotalAmount() {
+        for (var i = 0; i < 5; i++) {
+            var itemPriceEle = document.getElementById('itemPrice-' + i + '');
+            var itemQty = $('#itemQty-' + i + '').val();
+            var amountEle = document.getElementById('itemAmount-' + i + '');
+
+            var amount = itemQty * parseInt(itemPriceEle.innerText);
+
+            amountEle.innerText = amount;
+        }
+    }
+</script>

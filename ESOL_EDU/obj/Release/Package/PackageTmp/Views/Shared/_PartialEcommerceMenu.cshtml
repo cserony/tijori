@@ -1,0 +1,30 @@
+﻿@model IEnumerable<ESOL_BO.Ecommerce.EcommerceCategoryDomain>
+@{
+    <ul>
+        <li class="current-menu-item ">
+            <a href="@Url.Action("Index", "Web" , new { Area="" })">Home</a>
+        </li>
+        @foreach (ESOL_BO.Ecommerce.EcommerceCategoryDomain item in Model)
+        {
+            <li class="menu-item-has-children">
+                <a href="@Url.Action("products", "shop", new { Area = "", Slug =@item.Slug, CatId = 1 })">@item.CategoryName</a>
+                @{
+                    var subCat = ESOL_BO.DbAccess.DataAccess.EcommerceSubCategory.GetByOrg("select sc.*,c.CategoryName from EcommerceSubCategory sc left join EcommerceCategory c on c.CategoryId=sc.CategoryId where sc.CategoryId='" + @item.CategoryId + "' order by sc.SubCategoryName asc");
+                }
+
+                <ul class="sub-menu">
+                    @foreach (ESOL_BO.Ecommerce.EcommerceSubCategoryDomain item1 in subCat)
+                    {
+                        <li>
+                            <a href="@Url.Action("products", "shop", new { Area = "", Slug =@item1.Slug, CatId = 2 })">@item1.SubCategoryName</a>                            
+                        </li>
+                    }
+                </ul>
+
+            </li>
+
+                    }
+    </ul>
+}
+
+

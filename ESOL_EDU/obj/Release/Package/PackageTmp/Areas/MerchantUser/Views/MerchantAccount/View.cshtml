@@ -1,0 +1,127 @@
+﻿@model ESOL_BO.Merchant.MerchantUserDomain
+@{
+    ViewBag.Title = "Merchant Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<header class="head">
+    <div class="main-bar row">
+        <div class="col-sm-5 col-lg-6 skin_txt">
+            <h4 class="nav_top_align"><i class="fa fa-pencil"></i>Merchant Details</h4>
+        </div>
+        <div class="col-sm-7 col-lg-6">
+            <ol class="breadcrumb float-xs-right nav_breadcrumb_top_align">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home", new { Area = "" })"><i data-tags="" data-pack="default" class="fa fa-home"></i>Merchant Module</a></li>
+                <li class="breadcrumb-item">Merchant</li>
+                <li class="active breadcrumb-item">List</li>
+            </ol>
+        </div>
+    </div>
+</header>
+<div class="outer">
+    <div class="inner bg-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-white">Details</div>
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card inline_section_align">
+                                    <div class="card-header bg-white">
+                                        Personal Information
+                                    </div>
+                                    <div class="card-block">
+                                        <span class="text-success">Name:</span> @Html.DisplayFor(model => model.Name)<br />
+                                        <span class="text-success">Mobile No.:</span> @Html.DisplayFor(model => model.Mobile)<br />
+                                        <span class="text-success">Email:</span> @Html.DisplayFor(model => model.Email)<br />
+                                        <span class="text-success">Address:</span> @Html.DisplayFor(model => model.Address)<br />
+                                        <span class="text-success">Relatives Name:</span> @Html.DisplayFor(model => model.RelativesName)<br />
+                                        <span class="text-success">Relatives Mobile No:</span> @Html.DisplayFor(model => model.RelativesMobileNo)<br />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card inline_section_align">
+                                    <div class="card-header bg-white">
+                                        Education Information
+                                    </div>
+                                    <div class="card-block">                                        
+                                        <span class="text-success">Educational Qualification:</span> @Html.DisplayFor(model => model.EducationalQualification)<br />
+                                        <span class="text-success">Passing Year:</span> @Html.DisplayFor(model => model.PassingYear)<br />
+                                        <span class="text-success">Institution Name:</span> @Html.DisplayFor(model => model.InstitutionName)<br />
+                                        <span class="text-success">Brand Name:</span> @Html.DisplayFor(model => model.BrandName)<br />
+                                        <span class="text-success">Brand Address:</span> @Html.DisplayFor(model => model.BrandAddress)<br />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card inline_section_align">
+                                    <div class="card-header bg-white">
+                                        Photo
+                                    </div>
+                                    <div class="card-block">
+                                        <div class="col-md-4">
+                                            <img style="width: 190px; height: 190px;" src="@Url.Action("Photo", "MerchantAccount", new { area = "MerchantUser", studentPho = Model.MerchantId })" id="photoPreview2" /><br />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card inline_section_align">
+                                    <div class="card-header bg-white">
+                                        Product Category
+                                    </div>
+                                    <div class="card-block">
+                                        
+                                            @if (Model.Men == true)
+                                            {
+                                                <span class="text-success">Men</span><br />
+                                            }
+                                             @if (Model.Women == true)
+                                             {
+                                                <span class="text-success">Women</span><br />
+                                             }@if (Model.Childern == true)
+                                             {
+                                                <span class="text-success">Childern</span><br />
+                                             }@if (Model.Unisex == true)
+                                             {
+                                                <span class="text-success">Unisex</span><br />
+                                             }   
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card inline_section_align">
+                                    <div class="card-header bg-white">
+                                        Bank Accouns Details
+                                    </div>
+                                    <div class="card-block">
+                                        <span class="text-success">Account Name:</span> @Html.DisplayFor(model => model.AccountName)<br />
+                                        <span class="text-success">Account Number:</span> @Html.DisplayFor(model => model.AccountNumber)<br />
+                                        <span class="text-success">Bank Name:</span> @Html.DisplayFor(model => model.BankName)<br />
+                                        <span class="text-success">Bank Branch:</span> @Html.DisplayFor(model => model.BankBranch)<br />
+                                        <span class="text-success">Routing Number:</span> @Html.DisplayFor(model => model.RoutingNumber)<br />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card inline_section_align">
+                                    <div class="card-header bg-white">
+                                        BIO about yourself
+                                    </div>
+                                    <div class="card-block">
+                                        <span class="text-success">Your Self:</span> @Html.DisplayFor(model => model.YourSelf)<br />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p style="margin-left: 19px;">@Html.ActionLink("Go to list", "Index")</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

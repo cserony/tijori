@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "Log in";
+    Layout = null;
+}
+@model ESOL_BO.DbAccess.Security.LoginDomain
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Account Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="~/web/images/apple-touch-icon.png" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="~/Content/css/components.css" />
+    <link type="text/css" rel="stylesheet" href="~/Content/css/custom.css" />
+    <link type="text/css" rel="stylesheet" href="~/Content/css/login.css" />
+</head>
+<body>
+    <section class="bg-overlay">
+        <div class="container wow fadeInDown" data-wow-delay="0.5s" data-wow-duration="2s">
+            <div class="row">
+                <div class="col-lg-8 push-lg-2 col-md-10 push-md-1 col-sm-10 push-sm-1 login_top_bottom">
+                    <div class="row">
+                        <div class="col-lg-8 push-lg-2 col-md-10 push-md-1 col-sm-12">
+                            <div class="login_logo login_border_radius1">
+                                <h3 class="text-xs-center">
+                                    <img src="~/web/images/apple-touch-icon.png" alt="logo" class="admire_logo">
+                                </h3>
+                            </div>
+                            <div class="bg-white login_content login_border_radius">
+                                <div id="message">
+                                    @if (@ViewBag.ErrorMessage != null)
+                                    {
+                                        <p style="color:red">@ViewBag.ErrorMessage</p>
+                                    }
+                                </div>
+                                @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { ReturnUrl = ViewBag.ReturnUrl, @id = "login_validator" }))
+                                {
+                                    <div class="form-group">
+                                        <label for="email" class="form-control-label"> User Name</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon input_email"><i class="fa fa-user text-primary"></i></span>
+                                            @Html.TextBoxFor(model => model.UserName, new { @class = "form-control  form-control-md", @placeholder = "Enter your username" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password" class="form-control-label">Password</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon addon_password"><i class="fa fa-lock text-primary"></i></span>
+                                            @Html.PasswordFor(model => model.Password, new { @class = "form-control form-control-md", @placeholder = "Enter your password" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <input type="submit" value="Login" class="btn btn-primary btn-block login_button">
+                                            </div>
+                                            @*<div class="col-lg-12">
+                                                <a href="@Url.Action("PasswordRecovery", "Account", new { Area = "" })" style="color: #d92b52;font-size: 15px;">Forget Password?</a>
+                                            </div>*@
+                                        </div>
+                                    </div>
+                                    <p>Design & Developed By <a href="" target="_blank" style="color: #0A625E;font-size: 16px;font-weight: bold;">Tijori</a></p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script type="text/javascript" src="~/Scripts/js/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/login.js"></script>
+</body>
+</html>

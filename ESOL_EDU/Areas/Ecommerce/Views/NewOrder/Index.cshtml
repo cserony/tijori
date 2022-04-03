@@ -1,0 +1,171 @@
+﻿@using Kendo.Mvc.UI
+@using ESOL_BO.Ecommerce;
+@using ESOL_EDU.Helper
+@{
+    ViewBag.Title = "New Order Lists";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<header class="head">
+    <div class="main-bar row">
+        <div class="col-sm-5 col-lg-6 skin_txt">
+            <h4 class="nav_top_align"><i class="fa fa-pencil"></i>New Order Lists</h4>
+        </div>
+        <div class="col-sm-7 col-lg-6">
+            <ol class="breadcrumb float-xs-right nav_breadcrumb_top_align">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home", new { Area = "" })"><i data-tags="" data-pack="default" class="fa fa-home"></i>Order System</a></li>
+                <li class="breadcrumb-item">Order</li>
+                <li class="active breadcrumb-item">New List</li>
+            </ol>
+        </div>
+    </div>
+</header>
+<div class="outer">
+    <div class="inner bg-container">
+        <div class="row card">
+            @*<div class="col-md-12">
+        @if (AppHelper.CheckPermission("NewOrderController", "Create"))
+        {
+            @Html.ActionLink("Add Order", "Create", null, new { @class = "btn btn-sm btn-primary list_home" })
+        }
+    </div>*@
+            <div class="col-md-12">
+                @(Html.Kendo().Grid<EcommerceOrderDomain>()
+              .Name("xd")
+              .Columns(columns =>
+              {
+                  columns.Template(t => { }).Title("No.").ClientTemplate("#= renderNumber(data) #").Width(50);
+                  columns.Bound(p => p.Date).Filterable(true).Width(80).Title("Date");
+                  columns.Bound(p => p.InvoiceNo).Filterable(true).Width(90).Title("Invoice No.");
+                  columns.Bound(p => p.CustomerName).Filterable(true).Width(100).Title("Customer Name");
+                  columns.Bound(p => p.MobileNo).Filterable(true).Width(80);                  
+                  columns.Bound(p => p.Address).Filterable(true).Width(100);
+                  columns.Bound(p => p.TotalAmount).Filterable(true).Width(100);
+                  columns.Bound(p => p.Status).Filterable(true).Width(100);
+                  if (AppHelper.CheckPermission("NewOrderController", "View"))
+                  {
+                      columns.Bound(p => p.View).ClientTemplate(@Html.ActionLink("Invoice", "View", new { ID = "#=OrderId#" }, new { @class = "btn btn-sm btn-warning" }).ToHtmlString()).Filterable(false).Width(50);
+                  }
+                  //if (AppHelper.CheckPermission("NewOrderController", "Edit"))
+                  //{
+                  //    columns.Bound(p => p.Edit).ClientTemplate(@Html.ActionLink("Edit", "Edit", new { ID = "#=OrderId#" }, new { @class = "btn btn-sm btn-warning" }).ToHtmlString()).Filterable(false).Width(50);
+                  //}
+                  if (AppHelper.CheckPermission("NewOrderController", "Delete"))
+                  {
+                      columns.Bound(p => p.Delete).ClientTemplate(@Html.ActionLink("Delete", "Delete", new { ID = "#=OrderId#" }, new { @class = "cancelDialog btn btn-sm btn-danger" }).ToHtmlString()).Filterable(false).Width(60);
+                  }
+              })
+              .Pageable()
+              .Scrollable()
+              .Selectable()
+.Filterable()
+.Groupable()
+
+              .ClientDetailTemplateId("template")
+              .HtmlAttributes(new { style = "height:450px;" })
+             .DataSource(dataSource => dataSource
+            .Ajax()
+            .PageSize(10)
+                  .Model(model => model.Id(x => x.OrderId))
+                  .Read(read => read.Action("Read", "NewOrder", new { area = "Ecommerce" }))
+              )
+              .Events(events => events.DataBound("dataBound"))
+
+                )
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/js/jquery.min.js"></script>
+<script id="template" type="text/kendo-tmpl">
+    @(Html.Kendo().Grid<EcommerceOrderDetailsDomain>()
+            .Name("grid_#=OrderId#")
+            .Columns(columns =>
+            {
+                columns.Bound(o => o.ProductName).Width(110);
+                columns.Bound(p => p.SKU).Width(136);
+                columns.Bound(p => p.Quantity).Width(136);
+                columns.Bound(p => p.ItemPrice).Width(136).Title("Price");
+                columns.Bound(p => p.TotalPrice).Width(136);
+            })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(10)
+                .Read(read => read.Action("ReadSub", "NewOrder", new { OrderId = "#=OrderId#" }))
+            )
+            .Pageable()
+            .Selectable()
+            .ToClientTemplate()
+    )
+</script>
+<script>
+    function dataBound() {
+        this.expandRow(this.tbody.find("tr.k-master-row").first());
+    }
+    $(document).on('click', '.cancelDialog', function (e) {
+        try {
+            e.preventDefault();
+            var grid = $("#xd").data("kendoGrid");
+            var dataItem = grid.dataItem($(e.currentTarget).closest("tr"));
+            if (confirm("Are you want to Delete?")) {
+                $.ajax({
+                    url: '@Url.Action("Delete", "NewOrder", new { area = "Ecommerce" })',
+                    type: "POST",
+                    data: { id: dataItem.OrderId },
+                    success: function (result) {
+                        window.location.reload();
+                        alert("Delete Successfully");
+                    },
+                    error: function (result) {
+                        alert("Not Deleted!");
+                    }
+                });
+            }
+            return false;
+        } catch (e) {
+
+            alert(e.response);
+        }
+    });
+    $("#btnExport").click(function(e) {
+        var dataSource = $("#xd").data("kendoGrid").dataSource;
+        var filteredDataSource = new kendo.data.DataSource({
+            data: dataSource.data(),
+            filter: dataSource.filter()
+        });
+        filteredDataSource.read();
+        var data = filteredDataSource.view();
+        var result = "data:application/vnd.ms-excel,";
+        result += "<table><tr><th>CountryName</th></tr>";
+
+        for (var i = 0; i < data.length; i++) {
+            result += "<tr>";
+
+            result += "<td>";
+            result += data[i].CountryName;
+            result += "</td>";
+            result += "</tr>";
+        }
+
+        result += "</table>";
+        if (window.navigator.msSaveBlob) {
+            window.navigator.msSaveBlob(new Blob([result]), 'export.xls');
+        } else {
+            window.open(result);
+        }
+
+        e.preventDefault();
+    });
+
+    var rowNumber = 0;
+
+    function renderNumber(data) {
+        return ++rowNumber;
+    }
+
+    function resetRownumber(data) {
+        rowNumber = 0;
+    }
+</script>
+
+
