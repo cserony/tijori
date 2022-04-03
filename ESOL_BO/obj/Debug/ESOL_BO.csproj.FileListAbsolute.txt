@@ -13,3 +13,8 @@ F:\Tijori E-commerce\Project(14-Feb-2021)\ESOL_BO\bin\Debug\ESOL_BO.pdb
 F:\Tijori E-commerce\Project(14-Feb-2021)\ESOL_BO\obj\Debug\ESOL_BO.csprojResolveAssemblyReference.cache
 F:\Tijori E-commerce\Project(14-Feb-2021)\ESOL_BO\obj\Debug\ESOL_BO.dll
 F:\Tijori E-commerce\Project(14-Feb-2021)\ESOL_BO\obj\Debug\ESOL_BO.pdb
+H:\GitHub Upload\tijori\ESOL_BO\bin\Debug\ESOL_BO.dll
+H:\GitHub Upload\tijori\ESOL_BO\bin\Debug\ESOL_BO.pdb
+H:\GitHub Upload\tijori\ESOL_BO\obj\Debug\ESOL_BO.csprojResolveAssemblyReference.cache
+H:\GitHub Upload\tijori\ESOL_BO\obj\Debug\ESOL_BO.dll
+H:\GitHub Upload\tijori\ESOL_BO\obj\Debug\ESOL_BO.pdb
